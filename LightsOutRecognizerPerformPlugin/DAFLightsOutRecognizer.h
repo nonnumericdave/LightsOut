@@ -12,7 +12,9 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 namespace DAF
 {
-	bool RecognizeLightsOutBoardStateFromImage(const cv::Mat& kmatImage);
+	bool RecognizeLightsOutBoardStateFromImage(const cv::Mat& kmatImage,
+											   std::vector<bool>& vbStateMatrix,
+											   std::size_t& uDimension);
 };
 
 #endif
