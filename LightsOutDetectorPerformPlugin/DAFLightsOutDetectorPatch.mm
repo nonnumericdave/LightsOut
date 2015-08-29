@@ -15,10 +15,6 @@ const void* g_pkvKeyValueObservingContext = nullptr;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface DAFLightsOutDetectorPatch ()
 
-// NSObject
-- (instancetype)init;
-- (void)dealloc;
-
 // NSKeyValueObserving
 - (void)observeValueForKeyPath:(NSString*)pKeyPathString
 					  ofObject:(id)pObject
@@ -34,12 +30,6 @@ const void* g_pkvKeyValueObservingContext = nullptr;
 }
 
 @dynamic view;
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ (Class)viewClass
-{
-	return [RIImageView class];
-}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (instancetype)init
@@ -65,6 +55,12 @@ const void* g_pkvKeyValueObservingContext = nullptr;
 	[_pOpenCVCamera removeObserver:self
 						forKeyPath:@"image"
 						   context:&::g_pkvKeyValueObservingContext];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ (Class)viewClass
+{
+	return [RIImageView class];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

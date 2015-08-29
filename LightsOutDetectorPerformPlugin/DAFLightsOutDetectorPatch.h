@@ -12,6 +12,10 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface DAFLightsOutDetectorPatch : PMRViewPatch
 
+// NSObject
+- (instancetype)init;
+- (void)dealloc;
+
 // PMRViewPatch
 + (Class)viewClass;
 
