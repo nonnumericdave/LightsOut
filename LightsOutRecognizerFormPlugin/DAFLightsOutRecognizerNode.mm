@@ -1,15 +1,15 @@
 //
-//  DAFLightsOutDetectorNode.mm
+//  DAFLightsOutRecognizerNode.mm
 //  LightsOut
 //
 //  Created by David Flores on 8/28/15.
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#include "DAFLightsOutDetectorNode.h"
+#include "DAFLightsOutRecognizerNode.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@implementation DAFLightsOutDetectorNode
+@implementation DAFLightsOutRecognizerNode
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (instancetype)init
@@ -22,7 +22,7 @@
 			[[FMRArrayOutputPort alloc] initWithName:@"Board State Array"
 										   uniqueKey:@"Form.boardState"];
 		
-		[self addPort:pArrayOutputPort portGroup:@"DAFLightsOutDetectorNode"];
+		[self addPort:pArrayOutputPort portGroup:@"DAFLightsOutRecognizerNode"];
 	}
 	
 	return self;
@@ -31,7 +31,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 + (NSString*)defaultName
 {
-    return @"Lights Out Detector View";
+    return @"Lights Out Recognizer View";
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -49,7 +49,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 + (NSString*)processClassName
 {
-    return @"DAFLightsOutDetectorPatch";
+    return @"DAFLightsOutRecognizerPatch";
 }
 
 @end

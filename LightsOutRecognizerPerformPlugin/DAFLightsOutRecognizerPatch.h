@@ -1,16 +1,16 @@
 //
-//  DAFLightsOutDetectorPatch.h
+//  DAFLightsOutRecognizerPatch.h
 //  LightsOut
 //
 //  Created by David Flores on 8/28/15.
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#ifndef DAFLightsOutDetectorPatch_h
-#define DAFLightsOutDetectorPatch_h
+#ifndef DAFLightsOutRecognizerPatch_h
+#define DAFLightsOutRecognizerPatch_h
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@interface DAFLightsOutDetectorPatch : PMRViewPatch
+@interface DAFLightsOutRecognizerPatch : PMRViewPatch
 
 // NSObject
 - (instancetype)init;
@@ -21,7 +21,7 @@
 
 @property (nonatomic, readonly) RIImageView* view;
 
-// DAFLightsOutDetectorPlugin
+// DAFLightsOutRecognizerPlugin
 @property (nonatomic, readonly) PMRArrayOutputPort* boardState;
 
 @end

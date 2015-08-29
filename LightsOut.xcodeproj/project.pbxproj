@@ -21,9 +21,9 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		B3214C6E1B9172F50075EF9E /* LightsOutDetectorPerformPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540FBF1B9146EE0076176E /* LightsOutDetectorPerformPlugin.framework */; };
+		B3214C6E1B9172F50075EF9E /* LightsOutRecognizerPerformPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540FBF1B9146EE0076176E /* LightsOutRecognizerPerformPlugin.framework */; };
 		B3214C6F1B9172F50075EF9E /* LightsOutSolverPerformPlugin.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410101B91470A0076176E /* LightsOutSolverPerformPlugin.framework */; };
-		B3214C771B9173200075EF9E /* LightsOutDetectorPerformPlugin.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3540FBF1B9146EE0076176E /* LightsOutDetectorPerformPlugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B3214C771B9173200075EF9E /* LightsOutRecognizerPerformPlugin.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3540FBF1B9146EE0076176E /* LightsOutRecognizerPerformPlugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3214C781B9173200075EF9E /* LightsOutSolverPerformPlugin.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B35410101B91470A0076176E /* LightsOutSolverPerformPlugin.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B3214C7A1B9174490075EF9E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410C61B916B0B0076176E /* opencv2.framework */; };
 		B3214C7B1B9174650075EF9E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410B81B916AFF0076176E /* AssetsLibrary.framework */; };
@@ -43,12 +43,12 @@
 		B3540F8A1B9146930076176E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3540F891B9146930076176E /* Images.xcassets */; };
 		B3540F8C1B9146930076176E /* Connect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3540F8B1B9146930076176E /* Connect@2x.png */; };
 		B3540F941B9146930076176E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3540F921B9146930076176E /* LaunchScreen.xib */; };
-		B3540FAE1B9146EB0076176E /* LightsOutDetectorFormPlugin-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = B3540FAD1B9146EB0076176E /* LightsOutDetectorFormPlugin-Prefix.pch */; };
-		B3540FB61B9146EE0076176E /* DAFLightsOutDetectorPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3540FB51B9146EE0076176E /* DAFLightsOutDetectorPlugin.mm */; };
-		B3540FB91B9146EE0076176E /* DAFLightsOutDetectorNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3540FB81B9146EE0076176E /* DAFLightsOutDetectorNode.mm */; };
-		B3540FC41B9146EE0076176E /* LightsOutDetectorPerformPlugin-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = B3540FC31B9146EE0076176E /* LightsOutDetectorPerformPlugin-Prefix.pch */; };
-		B3540FCB1B9146EF0076176E /* DAFLightsOutDetectorPatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B3540FCA1B9146EF0076176E /* DAFLightsOutDetectorPatch.h */; };
-		B3540FCD1B9146EF0076176E /* DAFLightsOutDetectorPatch.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3540FCC1B9146EF0076176E /* DAFLightsOutDetectorPatch.mm */; };
+		B3540FAE1B9146EB0076176E /* LightsOutRecognizerFormPlugin-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = B3540FAD1B9146EB0076176E /* LightsOutRecognizerFormPlugin-Prefix.pch */; };
+		B3540FB61B9146EE0076176E /* DAFLightsOutRecognizerPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3540FB51B9146EE0076176E /* DAFLightsOutRecognizerPlugin.mm */; };
+		B3540FB91B9146EE0076176E /* DAFLightsOutRecognizerNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3540FB81B9146EE0076176E /* DAFLightsOutRecognizerNode.mm */; };
+		B3540FC41B9146EE0076176E /* LightsOutRecognizerPerformPlugin-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = B3540FC31B9146EE0076176E /* LightsOutRecognizerPerformPlugin-Prefix.pch */; };
+		B3540FCB1B9146EF0076176E /* DAFLightsOutRecognizerPatch.h in Headers */ = {isa = PBXBuildFile; fileRef = B3540FCA1B9146EF0076176E /* DAFLightsOutRecognizerPatch.h */; };
+		B3540FCD1B9146EF0076176E /* DAFLightsOutRecognizerPatch.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3540FCC1B9146EF0076176E /* DAFLightsOutRecognizerPatch.mm */; };
 		B35410041B91470A0076176E /* LightsOutSolverFormPlugin-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = B35410031B91470A0076176E /* LightsOutSolverFormPlugin-Prefix.pch */; };
 		B35410071B91470A0076176E /* DAFLightsOutSolverPlugin.mm in Sources */ = {isa = PBXBuildFile; fileRef = B35410061B91470A0076176E /* DAFLightsOutSolverPlugin.mm */; };
 		B354100A1B91470A0076176E /* DAFLightsOutSolverNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = B35410091B91470A0076176E /* DAFLightsOutSolverNode.mm */; };
@@ -93,7 +93,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B3214C771B9173200075EF9E /* LightsOutDetectorPerformPlugin.framework in CopyFiles */,
+				B3214C771B9173200075EF9E /* LightsOutRecognizerPerformPlugin.framework in CopyFiles */,
 				B3214C781B9173200075EF9E /* LightsOutSolverPerformPlugin.framework in CopyFiles */,
 				B35410AD1B914AE30076176E /* Performer.framework in CopyFiles */,
 				B35410AE1B914AE30076176E /* RelativeInterface.framework in CopyFiles */,
@@ -119,21 +119,21 @@
 		B3540F8E1B9146930076176E /* Performer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Performer.framework; path = ../Frameworks/Performer.framework; sourceTree = "<group>"; };
 		B3540F901B9146930076176E /* RelativeInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RelativeInterface.framework; path = ../Frameworks/RelativeInterface.framework; sourceTree = "<group>"; };
 		B3540F931B9146930076176E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		B3540FA91B9146EB0076176E /* LightsOutDetectorFormPlugin.formplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightsOutDetectorFormPlugin.formplugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3540FA91B9146EB0076176E /* LightsOutRecognizerFormPlugin.formplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightsOutRecognizerFormPlugin.formplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3540FAC1B9146EB0076176E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B3540FAD1B9146EB0076176E /* LightsOutDetectorFormPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutDetectorFormPlugin-Prefix.pch"; sourceTree = "<group>"; };
+		B3540FAD1B9146EB0076176E /* LightsOutRecognizerFormPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutRecognizerFormPlugin-Prefix.pch"; sourceTree = "<group>"; };
 		B3540FB01B9146EE0076176E /* Former.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Former.framework; path = ../Frameworks/Former.framework; sourceTree = "<group>"; };
-		B3540FB41B9146EE0076176E /* DAFLightsOutDetectorPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutDetectorPlugin.h; sourceTree = "<group>"; };
-		B3540FB51B9146EE0076176E /* DAFLightsOutDetectorPlugin.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutDetectorPlugin.mm; sourceTree = "<group>"; };
-		B3540FB71B9146EE0076176E /* DAFLightsOutDetectorNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutDetectorNode.h; sourceTree = "<group>"; };
-		B3540FB81B9146EE0076176E /* DAFLightsOutDetectorNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutDetectorNode.mm; sourceTree = "<group>"; };
-		B3540FBF1B9146EE0076176E /* LightsOutDetectorPerformPlugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LightsOutDetectorPerformPlugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3540FB41B9146EE0076176E /* DAFLightsOutRecognizerPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutRecognizerPlugin.h; sourceTree = "<group>"; };
+		B3540FB51B9146EE0076176E /* DAFLightsOutRecognizerPlugin.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutRecognizerPlugin.mm; sourceTree = "<group>"; };
+		B3540FB71B9146EE0076176E /* DAFLightsOutRecognizerNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutRecognizerNode.h; sourceTree = "<group>"; };
+		B3540FB81B9146EE0076176E /* DAFLightsOutRecognizerNode.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutRecognizerNode.mm; sourceTree = "<group>"; };
+		B3540FBF1B9146EE0076176E /* LightsOutRecognizerPerformPlugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LightsOutRecognizerPerformPlugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3540FC21B9146EE0076176E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B3540FC31B9146EE0076176E /* LightsOutDetectorPerformPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutDetectorPerformPlugin-Prefix.pch"; sourceTree = "<group>"; };
+		B3540FC31B9146EE0076176E /* LightsOutRecognizerPerformPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutRecognizerPerformPlugin-Prefix.pch"; sourceTree = "<group>"; };
 		B3540FC61B9146EF0076176E /* Performer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Performer.framework; path = ../Frameworks/Performer.framework; sourceTree = "<group>"; };
 		B3540FC81B9146EF0076176E /* RelativeInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RelativeInterface.framework; path = ../Frameworks/RelativeInterface.framework; sourceTree = "<group>"; };
-		B3540FCA1B9146EF0076176E /* DAFLightsOutDetectorPatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutDetectorPatch.h; sourceTree = "<group>"; };
-		B3540FCC1B9146EF0076176E /* DAFLightsOutDetectorPatch.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutDetectorPatch.mm; sourceTree = "<group>"; };
+		B3540FCA1B9146EF0076176E /* DAFLightsOutRecognizerPatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutRecognizerPatch.h; sourceTree = "<group>"; };
+		B3540FCC1B9146EF0076176E /* DAFLightsOutRecognizerPatch.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutRecognizerPatch.mm; sourceTree = "<group>"; };
 		B3540FFF1B91470A0076176E /* LightsOutSolverFormPlugin.formplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightsOutSolverFormPlugin.formplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		B35410021B91470A0076176E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B35410031B91470A0076176E /* LightsOutSolverFormPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutSolverFormPlugin-Prefix.pch"; sourceTree = "<group>"; };
@@ -162,7 +162,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3214C6E1B9172F50075EF9E /* LightsOutDetectorPerformPlugin.framework in Frameworks */,
+				B3214C6E1B9172F50075EF9E /* LightsOutRecognizerPerformPlugin.framework in Frameworks */,
 				B3214C6F1B9172F50075EF9E /* LightsOutSolverPerformPlugin.framework in Frameworks */,
 				B35410AB1B914AD60076176E /* Performer.framework in Frameworks */,
 				B35410AC1B914AD60076176E /* RelativeInterface.framework in Frameworks */,
@@ -222,8 +222,8 @@
 			children = (
 				B3540FC51B9146EF0076176E /* Frameworks */,
 				B3540F7C1B9146930076176E /* LightsOutViewer */,
-				B3540FAA1B9146EB0076176E /* LightsOutDetectorFormPlugin */,
-				B3540FC01B9146EE0076176E /* LightsOutDetectorPerformPlugin */,
+				B3540FAA1B9146EB0076176E /* LightsOutRecognizerFormPlugin */,
+				B3540FC01B9146EE0076176E /* LightsOutRecognizerPerformPlugin */,
 				B35410001B91470A0076176E /* LightsOutSolverFormPlugin */,
 				B35410111B91470A0076176E /* LightsOutSolverPerformPlugin */,
 				B3540F511B91468F0076176E /* Products */,
@@ -234,8 +234,8 @@
 			isa = PBXGroup;
 			children = (
 				B3540F7B1B9146930076176E /* LightsOutViewer.app */,
-				B3540FA91B9146EB0076176E /* LightsOutDetectorFormPlugin.formplugin */,
-				B3540FBF1B9146EE0076176E /* LightsOutDetectorPerformPlugin.framework */,
+				B3540FA91B9146EB0076176E /* LightsOutRecognizerFormPlugin.formplugin */,
+				B3540FBF1B9146EE0076176E /* LightsOutRecognizerPerformPlugin.framework */,
 				B3540FFF1B91470A0076176E /* LightsOutSolverFormPlugin.formplugin */,
 				B35410101B91470A0076176E /* LightsOutSolverPerformPlugin.framework */,
 			);
@@ -277,44 +277,44 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B3540FAA1B9146EB0076176E /* LightsOutDetectorFormPlugin */ = {
+		B3540FAA1B9146EB0076176E /* LightsOutRecognizerFormPlugin */ = {
 			isa = PBXGroup;
 			children = (
-				B3540FB41B9146EE0076176E /* DAFLightsOutDetectorPlugin.h */,
-				B3540FB51B9146EE0076176E /* DAFLightsOutDetectorPlugin.mm */,
-				B3540FB71B9146EE0076176E /* DAFLightsOutDetectorNode.h */,
-				B3540FB81B9146EE0076176E /* DAFLightsOutDetectorNode.mm */,
+				B3540FB41B9146EE0076176E /* DAFLightsOutRecognizerPlugin.h */,
+				B3540FB51B9146EE0076176E /* DAFLightsOutRecognizerPlugin.mm */,
+				B3540FB71B9146EE0076176E /* DAFLightsOutRecognizerNode.h */,
+				B3540FB81B9146EE0076176E /* DAFLightsOutRecognizerNode.mm */,
 				B3540FAB1B9146EB0076176E /* Supporting Files */,
 			);
-			path = LightsOutDetectorFormPlugin;
+			path = LightsOutRecognizerFormPlugin;
 			sourceTree = "<group>";
 		};
 		B3540FAB1B9146EB0076176E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				B3540FAC1B9146EB0076176E /* Info.plist */,
-				B3540FAD1B9146EB0076176E /* LightsOutDetectorFormPlugin-Prefix.pch */,
+				B3540FAD1B9146EB0076176E /* LightsOutRecognizerFormPlugin-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		B3540FC01B9146EE0076176E /* LightsOutDetectorPerformPlugin */ = {
+		B3540FC01B9146EE0076176E /* LightsOutRecognizerPerformPlugin */ = {
 			isa = PBXGroup;
 			children = (
-				B3540FCA1B9146EF0076176E /* DAFLightsOutDetectorPatch.h */,
-				B3540FCC1B9146EF0076176E /* DAFLightsOutDetectorPatch.mm */,
+				B3540FCA1B9146EF0076176E /* DAFLightsOutRecognizerPatch.h */,
+				B3540FCC1B9146EF0076176E /* DAFLightsOutRecognizerPatch.mm */,
 				B3214C841B9190340075EF9E /* DAFOpenCVCamera.h */,
 				B3214C851B9190340075EF9E /* DAFOpenCVCamera.mm */,
 				B3540FC11B9146EE0076176E /* Supporting Files */,
 			);
-			path = LightsOutDetectorPerformPlugin;
+			path = LightsOutRecognizerPerformPlugin;
 			sourceTree = "<group>";
 		};
 		B3540FC11B9146EE0076176E /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				B3540FC21B9146EE0076176E /* Info.plist */,
-				B3540FC31B9146EE0076176E /* LightsOutDetectorPerformPlugin-Prefix.pch */,
+				B3540FC31B9146EE0076176E /* LightsOutRecognizerPerformPlugin-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -387,8 +387,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3540FC41B9146EE0076176E /* LightsOutDetectorPerformPlugin-Prefix.pch in Headers */,
-				B3540FCB1B9146EF0076176E /* DAFLightsOutDetectorPatch.h in Headers */,
+				B3540FC41B9146EE0076176E /* LightsOutRecognizerPerformPlugin-Prefix.pch in Headers */,
+				B3540FCB1B9146EF0076176E /* DAFLightsOutRecognizerPatch.h in Headers */,
 				B3214C861B9190340075EF9E /* DAFOpenCVCamera.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -425,9 +425,9 @@
 			productReference = B3540F7B1B9146930076176E /* LightsOutViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B3540FA81B9146EB0076176E /* LightsOutDetectorFormPlugin */ = {
+		B3540FA81B9146EB0076176E /* LightsOutRecognizerFormPlugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B3540FF01B9146EF0076176E /* Build configuration list for PBXNativeTarget "LightsOutDetectorFormPlugin" */;
+			buildConfigurationList = B3540FF01B9146EF0076176E /* Build configuration list for PBXNativeTarget "LightsOutRecognizerFormPlugin" */;
 			buildPhases = (
 				B3540FA51B9146EB0076176E /* Sources */,
 				B3540FA61B9146EB0076176E /* Frameworks */,
@@ -437,14 +437,14 @@
 			);
 			dependencies = (
 			);
-			name = LightsOutDetectorFormPlugin;
+			name = LightsOutRecognizerFormPlugin;
 			productName = LightsOutDetectorFormPlugin;
-			productReference = B3540FA91B9146EB0076176E /* LightsOutDetectorFormPlugin.formplugin */;
+			productReference = B3540FA91B9146EB0076176E /* LightsOutRecognizerFormPlugin.formplugin */;
 			productType = "com.apple.product-type.bundle";
 		};
-		B3540FBE1B9146EE0076176E /* LightsOutDetectorPerformPlugin */ = {
+		B3540FBE1B9146EE0076176E /* LightsOutRecognizerPerformPlugin */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B3540FF31B9146EF0076176E /* Build configuration list for PBXNativeTarget "LightsOutDetectorPerformPlugin" */;
+			buildConfigurationList = B3540FF31B9146EF0076176E /* Build configuration list for PBXNativeTarget "LightsOutRecognizerPerformPlugin" */;
 			buildPhases = (
 				B3540FBA1B9146EE0076176E /* Sources */,
 				B3540FBB1B9146EE0076176E /* Frameworks */,
@@ -455,9 +455,9 @@
 			);
 			dependencies = (
 			);
-			name = LightsOutDetectorPerformPlugin;
+			name = LightsOutRecognizerPerformPlugin;
 			productName = LightsOutDetectorPerformPlugin;
-			productReference = B3540FBF1B9146EE0076176E /* LightsOutDetectorPerformPlugin.framework */;
+			productReference = B3540FBF1B9146EE0076176E /* LightsOutRecognizerPerformPlugin.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		B3540FFE1B91470A0076176E /* LightsOutSolverFormPlugin */ = {
@@ -538,9 +538,9 @@
 			projectRoot = "";
 			targets = (
 				B3540F4B1B91468F0076176E /* LightsOut */,
-				B3540FA81B9146EB0076176E /* LightsOutDetectorFormPlugin */,
+				B3540FA81B9146EB0076176E /* LightsOutRecognizerFormPlugin */,
 				B3540FFE1B91470A0076176E /* LightsOutSolverFormPlugin */,
-				B3540FBE1B9146EE0076176E /* LightsOutDetectorPerformPlugin */,
+				B3540FBE1B9146EE0076176E /* LightsOutRecognizerPerformPlugin */,
 				B354100F1B91470A0076176E /* LightsOutSolverPerformPlugin */,
 				B3540F7A1B9146930076176E /* LightsOutViewer */,
 			);
@@ -563,7 +563,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3540FAE1B9146EB0076176E /* LightsOutDetectorFormPlugin-Prefix.pch in Resources */,
+				B3540FAE1B9146EB0076176E /* LightsOutRecognizerFormPlugin-Prefix.pch in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -603,7 +603,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "cd \"${BUILD_DIR}\"\n\n## Build all of the Xcode configurations.\n# Mac\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutDetectorFormPlugin -configuration Release BUILD_DIR=\"${BUILD_DIR}\"\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutSolverFormPlugin -configuration Release BUILD_DIR=\"${BUILD_DIR}\"\n\n# iOS\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutDetectorPerformPlugin -configuration Release -sdk iphoneos BUILD_DIR=\"${BUILD_DIR}\"\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutDetectorPerformPlugin -configuration Release -sdk iphonesimulator BUILD_DIR=\"${BUILD_DIR}\"\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutSolverPerformPlugin -configuration Release -sdk iphoneos BUILD_DIR=\"${BUILD_DIR}\"\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutSolverPerformPlugin -configuration Release -sdk iphonesimulator BUILD_DIR=\"${BUILD_DIR}\"\n\n# Create the destination directory.\nDEST_DIR=./LightsOut\nrm -rf $DEST_DIR\nmkdir -p \"$DEST_DIR/LightsOutDetector.formplugin\"\nmkdir -p \"$DEST_DIR/LightsOutSolver.formplugin\"\n\n# Copy the OSX build\ncp -fR \"./Release/LightsOutDetectorFormPlugin.formplugin/\" \"$DEST_DIR/LightsOutDetector.formplugin/\"\ncp -fR \"./Release/LightsOutSolverFormPlugin.formplugin/\" \"$DEST_DIR/LightsOutSolver.formplugin/\"\n\n# Copy the iOS build\ncp -fR \"./Release-iphoneos/LightsOutDetectorPerformPlugin.framework\" \"$DEST_DIR/LightsOutDetectorPerformPlugin.framework\"\ncp -fR \"./Release-iphoneos/LightsOutSolverPerformPlugin.framework\" \"$DEST_DIR/LightsOutSolverPerformPlugin.framework\"\n\n# lipo the iOS build\nlipo -create \"${BUILD_DIR}/Release-iphonesimulator/LightsOutDetectorPerformPlugin.framework/LightsOutDetectorPerformPlugin\" \"${BUILD_DIR}/Release-iphoneos/LightsOutDetectorPerformPlugin.framework/LightsOutDetectorPerformPlugin\" -output \"$DEST_DIR/LightsOutDetectorPerformPlugin.framework/LightsOutDetectorPerformPlugin\"\nlipo -create \"${BUILD_DIR}/Release-iphonesimulator/LightsOutSolverPerformPlugin.framework/LightsOutSolverPerformPlugin\" \"${BUILD_DIR}/Release-iphoneos/LightsOutSolverPerformPlugin.framework/LightsOutSolverPerformPlugin\" -output \"$DEST_DIR/LightsOutSolverPerformPlugin.framework/LightsOutSolverPerformPlugin\"\n\n# Copy the iOS build into the OSX plugin for safe keeping\nmkdir -p \"$DEST_DIR/LightsOutDetector.formplugin/Contents/Perform/\"\ncp -fR \"$DEST_DIR/LightsOutDetectorPerformPlugin.framework\" \"$DEST_DIR/LightsOutDetector.formplugin/Contents/Perform/\"\nmkdir -p \"$DEST_DIR/LightsOutSolver.formplugin/Contents/Perform/\"\ncp -fR \"$DEST_DIR/LightsOutSolverPerformPlugin.framework\" \"$DEST_DIR/LightsOutSolver.formplugin/Contents/Perform/\"\n\n# Install plugin\nmkdir -p \"$HOME/Library/Application Support/Form/PlugIns/\"\ncp -fR \"$DEST_DIR/LightsOutDetector.formplugin\" \"$HOME/Library/Application Support/Form/PlugIns/\"\ncp -fR \"$DEST_DIR/LightsOutSolver.formplugin\" \"$HOME/Library/Application Support/Form/PlugIns/\"\n\n# Reveal the finished plugin if we're archiving\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    open --reveal $DEST_DIR\nfi\n";
+			shellScript = "cd \"${BUILD_DIR}\"\n\n## Build all of the Xcode configurations.\n# Mac\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutRecognizerFormPlugin -configuration Release BUILD_DIR=\"${BUILD_DIR}\"\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutSolverFormPlugin -configuration Release BUILD_DIR=\"${BUILD_DIR}\"\n\n# iOS\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutRecognizerPerformPlugin -configuration Release -sdk iphoneos BUILD_DIR=\"${BUILD_DIR}\"\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutRecognizerPerformPlugin -configuration Release -sdk iphonesimulator BUILD_DIR=\"${BUILD_DIR}\"\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutSolverPerformPlugin -configuration Release -sdk iphoneos BUILD_DIR=\"${BUILD_DIR}\"\nxcodebuild -project \"${PROJECT_DIR}/LightsOut.xcodeproj\" -scheme LightsOutSolverPerformPlugin -configuration Release -sdk iphonesimulator BUILD_DIR=\"${BUILD_DIR}\"\n\n# Create the destination directory.\nDEST_DIR=./LightsOut\nrm -rf $DEST_DIR\nmkdir -p \"$DEST_DIR/LightsOutRecognizer.formplugin\"\nmkdir -p \"$DEST_DIR/LightsOutSolver.formplugin\"\n\n# Copy the OSX build\ncp -fR \"./Release/LightsOutRecognizerFormPlugin.formplugin/\" \"$DEST_DIR/LightsOutRecognizer.formplugin/\"\ncp -fR \"./Release/LightsOutSolverFormPlugin.formplugin/\" \"$DEST_DIR/LightsOutSolver.formplugin/\"\n\n# Copy the iOS build\ncp -fR \"./Release-iphoneos/LightsOutRecognizerPerformPlugin.framework\" \"$DEST_DIR/LightsOutRecognizerPerformPlugin.framework\"\ncp -fR \"./Release-iphoneos/LightsOutSolverPerformPlugin.framework\" \"$DEST_DIR/LightsOutSolverPerformPlugin.framework\"\n\n# lipo the iOS build\nlipo -create \"${BUILD_DIR}/Release-iphonesimulator/LightsOutRecognizerPerformPlugin.framework/LightsOutRecognizerPerformPlugin\" \"${BUILD_DIR}/Release-iphoneos/LightsOutRecognizerPerformPlugin.framework/LightsOutRecognizerPerformPlugin\" -output \"$DEST_DIR/LightsOutRecognizerPerformPlugin.framework/LightsOutRecognizerPerformPlugin\"\nlipo -create \"${BUILD_DIR}/Release-iphonesimulator/LightsOutSolverPerformPlugin.framework/LightsOutSolverPerformPlugin\" \"${BUILD_DIR}/Release-iphoneos/LightsOutSolverPerformPlugin.framework/LightsOutSolverPerformPlugin\" -output \"$DEST_DIR/LightsOutSolverPerformPlugin.framework/LightsOutSolverPerformPlugin\"\n\n# Copy the iOS build into the OSX plugin for safe keeping\nmkdir -p \"$DEST_DIR/LightsOutRecognizer.formplugin/Contents/Perform/\"\ncp -fR \"$DEST_DIR/LightsOutRecognizerPerformPlugin.framework\" \"$DEST_DIR/LightsOutRecognizer.formplugin/Contents/Perform/\"\nmkdir -p \"$DEST_DIR/LightsOutSolver.formplugin/Contents/Perform/\"\ncp -fR \"$DEST_DIR/LightsOutSolverPerformPlugin.framework\" \"$DEST_DIR/LightsOutSolver.formplugin/Contents/Perform/\"\n\n# Install plugin\nmkdir -p \"$HOME/Library/Application Support/Form/PlugIns/\"\ncp -fR \"$DEST_DIR/LightsOutRecognizer.formplugin\" \"$HOME/Library/Application Support/Form/PlugIns/\"\ncp -fR \"$DEST_DIR/LightsOutSolver.formplugin\" \"$HOME/Library/Application Support/Form/PlugIns/\"\n\n# Reveal the finished plugin if we're archiving\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\nopen --reveal $DEST_DIR\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -622,8 +622,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3540FB61B9146EE0076176E /* DAFLightsOutDetectorPlugin.mm in Sources */,
-				B3540FB91B9146EE0076176E /* DAFLightsOutDetectorNode.mm in Sources */,
+				B3540FB61B9146EE0076176E /* DAFLightsOutRecognizerPlugin.mm in Sources */,
+				B3540FB91B9146EE0076176E /* DAFLightsOutRecognizerNode.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -631,7 +631,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3540FCD1B9146EF0076176E /* DAFLightsOutDetectorPatch.mm in Sources */,
+				B3540FCD1B9146EF0076176E /* DAFLightsOutRecognizerPatch.mm in Sources */,
 				B3214C871B9190340075EF9E /* DAFOpenCVCamera.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -658,7 +658,7 @@
 /* Begin PBXTargetDependency section */
 		B35410C91B916FD90076176E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B3540FBE1B9146EE0076176E /* LightsOutDetectorPerformPlugin */;
+			target = B3540FBE1B9146EE0076176E /* LightsOutRecognizerPerformPlugin */;
 			targetProxy = B35410C81B916FD90076176E /* PBXContainerItemProxy */;
 		};
 		B35410CB1B916FD90076176E /* PBXTargetDependency */ = {
@@ -821,12 +821,12 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				GCC_PREFIX_HEADER = "LightsOutDetectorFormPlugin/LightsOutDetectorFormPlugin-Prefix.pch";
+				GCC_PREFIX_HEADER = "LightsOutRecognizerFormPlugin/LightsOutRecognizerFormPlugin-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = LightsOutDetectorFormPlugin/Info.plist;
+				INFOPLIST_FILE = LightsOutRecognizerFormPlugin/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -845,8 +845,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
 				);
-				GCC_PREFIX_HEADER = "LightsOutDetectorFormPlugin/LightsOutDetectorFormPlugin-Prefix.pch";
-				INFOPLIST_FILE = LightsOutDetectorFormPlugin/Info.plist;
+				GCC_PREFIX_HEADER = "LightsOutRecognizerFormPlugin/LightsOutRecognizerFormPlugin-Prefix.pch";
+				INFOPLIST_FILE = LightsOutRecognizerFormPlugin/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -871,12 +871,12 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LightsOutDetectorPerformPlugin/LightsOutDetectorPerformPlugin-Prefix.pch";
+				GCC_PREFIX_HEADER = "LightsOutRecognizerPerformPlugin/LightsOutRecognizerPerformPlugin-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = LightsOutDetectorPerformPlugin/Info.plist;
+				INFOPLIST_FILE = LightsOutRecognizerPerformPlugin/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -904,8 +904,8 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LightsOutDetectorPerformPlugin/LightsOutDetectorPerformPlugin-Prefix.pch";
-				INFOPLIST_FILE = LightsOutDetectorPerformPlugin/Info.plist;
+				GCC_PREFIX_HEADER = "LightsOutRecognizerPerformPlugin/LightsOutRecognizerPerformPlugin-Prefix.pch";
+				INFOPLIST_FILE = LightsOutRecognizerPerformPlugin/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -1056,7 +1056,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B3540FF01B9146EF0076176E /* Build configuration list for PBXNativeTarget "LightsOutDetectorFormPlugin" */ = {
+		B3540FF01B9146EF0076176E /* Build configuration list for PBXNativeTarget "LightsOutRecognizerFormPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3540FF11B9146EF0076176E /* Debug */,
@@ -1065,7 +1065,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B3540FF31B9146EF0076176E /* Build configuration list for PBXNativeTarget "LightsOutDetectorPerformPlugin" */ = {
+		B3540FF31B9146EF0076176E /* Build configuration list for PBXNativeTarget "LightsOutRecognizerPerformPlugin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3540FF41B9146EF0076176E /* Debug */,

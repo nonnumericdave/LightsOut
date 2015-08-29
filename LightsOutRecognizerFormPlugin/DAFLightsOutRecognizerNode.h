@@ -1,16 +1,16 @@
 //
-//  DAFLightsOutDetectorNode.h
+//  DAFLightsOutRecognizerNode.h
 //  LightsOut
 //
 //  Created by David Flores on 8/28/15.
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#ifndef DAFLightsOutDetectorNode_h
-#define DAFLightsOutDetectorNode_h
+#ifndef DAFLightsOutRecognizerNode_h
+#define DAFLightsOutRecognizerNode_h
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@interface DAFLightsOutDetectorNode : FMRViewNode
+@interface DAFLightsOutRecognizerNode : FMRViewNode
 
 // NSObject
 - (instancetype)init;

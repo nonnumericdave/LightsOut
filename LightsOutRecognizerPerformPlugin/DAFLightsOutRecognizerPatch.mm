@@ -1,19 +1,19 @@
 //
-//  DAFLightsOutDetectorPatch.mm
+//  DAFLightsOutRecognizerPatch.mm
 //  LightsOut
 //
 //  Created by David Flores on 8/28/15.
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#include "DAFLightsOutDetectorPatch.h"
+#include "DAFLightsOutRecognizerPatch.h"
 #include "DAFOpenCVCamera.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const void* g_pkvKeyValueObservingContext = nullptr;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@interface DAFLightsOutDetectorPatch ()
+@interface DAFLightsOutRecognizerPatch ()
 
 // NSKeyValueObserving
 - (void)observeValueForKeyPath:(NSString*)pKeyPathString
@@ -24,7 +24,7 @@ const void* g_pkvKeyValueObservingContext = nullptr;
 @end
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@implementation DAFLightsOutDetectorPatch
+@implementation DAFLightsOutRecognizerPatch
 {
 	DAFOpenCVCamera* _pOpenCVCamera;
 }
