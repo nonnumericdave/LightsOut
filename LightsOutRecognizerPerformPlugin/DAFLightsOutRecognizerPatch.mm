@@ -7,10 +7,13 @@
 //
 
 #include "DAFLightsOutRecognizerPatch.h"
+#include "DAFLightsOutRecognizer.h"
 #include "DAFOpenCVCamera.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-const void* g_pkvKeyValueObservingContext = nullptr;
+static const void* g_pkvKeyValueObservingContext = nullptr;
+static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
+	::dispatch_semaphore_create(3);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface DAFLightsOutRecognizerPatch ()
@@ -21,7 +24,38 @@ const void* g_pkvKeyValueObservingContext = nullptr;
 						change:(NSDictionary*)pChangeDictionary
 					   context:(void*)pvContext;
 
+// DAFLightsOutRecognizerPatch
+- (void)setBoardStateArray:(NSArray*)pBoardStateArray;
+
 @end
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+static
+void
+DispatchBoardStateResult(DAFLightsOutRecognizerPatch* pLightsOutRecognizerPatch,
+						 const std::vector<bool>& kvbStateMatrix,
+						 const std::size_t kuDimension)
+{
+	const NSUInteger kuBoardElements = kvbStateMatrix.size();
+	NSMutableArray* pBoardStateArray =
+		[NSMutableArray arrayWithCapacity:kuBoardElements];
+	
+	for (bool bElementState : kvbStateMatrix )
+	{
+		PMRPrimitive* pElementStatePrimitive =
+			[PMRPrimitive primitiveWithBooleanValue:bElementState];
+		
+		[pBoardStateArray addObject:pElementStatePrimitive];
+	}
+	
+	dispatch_block_t dispatchBlock =
+		^void(void)
+		{
+			[pLightsOutRecognizerPatch setBoardStateArray:pBoardStateArray];
+		};
+	
+	::dispatch_async(::dispatch_get_main_queue(), dispatchBlock);
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @implementation DAFLightsOutRecognizerPatch
@@ -75,6 +109,34 @@ const void* g_pkvKeyValueObservingContext = nullptr;
 		assert( pObject == _pOpenCVCamera );
 		
 		self.view.image = _pOpenCVCamera.image;
+		
+		bool bCanProcessImage =
+			::dispatch_semaphore_wait(::g_dispatchSemaphoreImageProcessing, 0) == 0;
+		
+		if ( bCanProcessImage )
+		{
+			const cv::Mat kmatImage = _pOpenCVCamera.matrix;
+			
+			dispatch_block_t dispatchBlock =
+				^void(void)
+				{
+					std::vector<bool> vbStateMatrix;
+					std::size_t uDimension;
+					
+					bool bDidRecognizeBoardState =
+						DAF::RecognizeLightsOutBoardStateFromImage(kmatImage,
+																   vbStateMatrix,
+																   uDimension);
+					
+					if ( bDidRecognizeBoardState )
+						::DispatchBoardStateResult(self, vbStateMatrix, uDimension);
+					
+					::dispatch_semaphore_signal(::g_dispatchSemaphoreImageProcessing);
+				};
+			
+			::dispatch_async(::dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0),
+							 dispatchBlock);
+		}
 	}
 	else
 	{
@@ -83,6 +145,14 @@ const void* g_pkvKeyValueObservingContext = nullptr;
 							   change:pChangeDictionary
 							  context:pvContext];
 	}
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)setBoardStateArray:(NSArray*)pBoardStateArray
+{
+	_boardState.value = pBoardStateArray;
+	
+	[self setShouldProcessNextFrame];
 }
 
 @end
