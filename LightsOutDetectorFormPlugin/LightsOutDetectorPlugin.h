@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#import <Former/FMRPlugin.h>
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface LightsOutDetectorPlugin : FMRPlugin
 

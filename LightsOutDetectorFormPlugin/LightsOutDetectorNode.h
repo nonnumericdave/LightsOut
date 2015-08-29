@@ -6,8 +6,6 @@
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#import <Former/Former.h>
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface LightsOutDetectorNode : FMRViewNode
 

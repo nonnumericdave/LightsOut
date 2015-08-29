@@ -54,6 +54,14 @@
 		B35410B51B914BA40076176E /* Former.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540FB01B9146EE0076176E /* Former.framework */; };
 		B35410B61B914BAF0076176E /* Performer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540F8E1B9146930076176E /* Performer.framework */; };
 		B35410B71B914BAF0076176E /* RelativeInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540F901B9146930076176E /* RelativeInterface.framework */; };
+		B35410BF1B916AFF0076176E /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410B81B916AFF0076176E /* AssetsLibrary.framework */; };
+		B35410C01B916AFF0076176E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410B91B916AFF0076176E /* AVFoundation.framework */; };
+		B35410C11B916AFF0076176E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410BA1B916AFF0076176E /* CoreGraphics.framework */; };
+		B35410C21B916AFF0076176E /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410BB1B916AFF0076176E /* CoreMedia.framework */; };
+		B35410C31B916AFF0076176E /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410BC1B916AFF0076176E /* CoreVideo.framework */; };
+		B35410C41B916AFF0076176E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410BD1B916AFF0076176E /* QuartzCore.framework */; };
+		B35410C51B916AFF0076176E /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410BE1B916AFF0076176E /* UIKit.framework */; };
+		B35410C71B916B0B0076176E /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410C61B916B0B0076176E /* opencv2.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -114,6 +122,14 @@
 		B35410161B91470B0076176E /* LightsOutSolverPatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LightsOutSolverPatch.h; sourceTree = "<group>"; };
 		B35410181B91470B0076176E /* LightsOutSolverPatch.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LightsOutSolverPatch.m; sourceTree = "<group>"; };
 		B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RelativeInterfaceMac.framework; path = ../Frameworks/RelativeInterfaceMac.framework; sourceTree = "<group>"; };
+		B35410B81B916AFF0076176E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
+		B35410B91B916AFF0076176E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		B35410BA1B916AFF0076176E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		B35410BB1B916AFF0076176E /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		B35410BC1B916AFF0076176E /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
+		B35410BD1B916AFF0076176E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		B35410BE1B916AFF0076176E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		B35410C61B916B0B0076176E /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = Frameworks/opencv2.framework; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +155,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B35410C71B916B0B0076176E /* opencv2.framework in Frameworks */,
+				B35410BF1B916AFF0076176E /* AssetsLibrary.framework in Frameworks */,
+				B35410C01B916AFF0076176E /* AVFoundation.framework in Frameworks */,
+				B35410C11B916AFF0076176E /* CoreGraphics.framework in Frameworks */,
+				B35410C21B916AFF0076176E /* CoreMedia.framework in Frameworks */,
+				B35410C31B916AFF0076176E /* CoreVideo.framework in Frameworks */,
+				B35410C41B916AFF0076176E /* QuartzCore.framework in Frameworks */,
+				B35410C51B916AFF0076176E /* UIKit.framework in Frameworks */,
 				B35410B21B914B970076176E /* Performer.framework in Frameworks */,
 				B35410B31B914B970076176E /* RelativeInterface.framework in Frameworks */,
 			);
@@ -268,6 +292,14 @@
 		B3540FC51B9146EF0076176E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B35410B81B916AFF0076176E /* AssetsLibrary.framework */,
+				B35410B91B916AFF0076176E /* AVFoundation.framework */,
+				B35410BA1B916AFF0076176E /* CoreGraphics.framework */,
+				B35410BB1B916AFF0076176E /* CoreMedia.framework */,
+				B35410BC1B916AFF0076176E /* CoreVideo.framework */,
+				B35410BD1B916AFF0076176E /* QuartzCore.framework */,
+				B35410BE1B916AFF0076176E /* UIKit.framework */,
+				B35410C61B916B0B0076176E /* opencv2.framework */,
 				B3540FB01B9146EE0076176E /* Former.framework */,
 				B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */,
 				B3540FC61B9146EF0076176E /* Performer.framework */,
