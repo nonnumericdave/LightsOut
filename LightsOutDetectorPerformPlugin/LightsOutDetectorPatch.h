@@ -17,4 +17,6 @@
 // PMRViewPatch
 + (Class)viewClass;
 
+@property (nonatomic, readonly) RIImageView* view;
+
 @end
