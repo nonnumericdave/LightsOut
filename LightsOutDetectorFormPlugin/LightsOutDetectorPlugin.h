@@ -11,4 +11,9 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface LightsOutDetectorPlugin : FMRPlugin
 
+// FMRPlugin
++ (NSString*)name;
++ (NSString*)description;
++ (NSArray*)nodeClasses;
+
 @end

@@ -9,6 +9,13 @@
 #import <Former/Former.h>
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@interface LightsOutDetectorNode : FMRNode
+@interface LightsOutDetectorNode : FMRViewNode
+
+// NSObject
+- (instancetype)init;
+
+// FMRNode
++ (NSString*)defaultName;
++ (NSString*)processClassName;
 
 @end

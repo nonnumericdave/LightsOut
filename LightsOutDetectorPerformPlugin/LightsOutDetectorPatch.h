@@ -9,9 +9,12 @@
 #import <Performer/Performer.h>
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@interface LightsOutDetectorPatch : PMRPatch
+@interface LightsOutDetectorPatch : PMRViewPatch
 
-@property (nonatomic, readonly) PMRPrimitiveInputPort *onOffInput;
-@property (nonatomic, readonly) PMRPrimitiveOutputPort *colorOutput;
+// PMRPatch
+- (void)processPatchWithContext:(PMRProcessContext*)pProcessContext;
+
+// PMRViewPatch
++ (Class)viewClass;
 
 @end
