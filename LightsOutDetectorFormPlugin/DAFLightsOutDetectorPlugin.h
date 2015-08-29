@@ -1,13 +1,16 @@
 //
-//  LightsOutDetectorPlugin.h
+//  DAFLightsOutDetectorPlugin.h
 //  LightsOut
 //
 //  Created by David Flores on 8/28/15.
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
+#ifndef DAFLightsOutDetectorPlugin_h
+#define DAFLightsOutDetectorPlugin_h
+
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@interface LightsOutDetectorPlugin : FMRPlugin
+@interface DAFLightsOutDetectorPlugin : FMRPlugin
 
 // FMRPlugin
 + (NSString*)name;
@@ -15,3 +18,5 @@
 + (NSArray*)nodeClasses;
 
 @end
+
+#endif

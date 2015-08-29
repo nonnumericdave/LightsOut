@@ -1,16 +1,16 @@
 //
-//  LightsOutSolverPlugin.m
+//  DAFLightsOutSolverPlugin.mm
 //  LightsOut
 //
 //  Created by David Flores on 8/28/15.
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#import "LightsOutSolverPlugin.h"
-#import "LightsOutSolverNode.h"
+#include "DAFLightsOutSolverPlugin.h"
+#include "DAFLightsOutSolverNode.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@implementation LightsOutSolverPlugin
+@implementation DAFLightsOutSolverPlugin
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 + (NSString*)name
@@ -27,7 +27,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 + (NSArray*)nodeClasses
 {
-    return @[[LightsOutSolverNode class]];
+    return @[[DAFLightsOutSolverNode class]];
 }
 
 @end

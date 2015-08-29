@@ -1,33 +1,38 @@
 //
-//  LightsOutDetectorPlugin.m
+//  DAFLightsOutDetectorNode.mm
 //  LightsOut
 //
 //  Created by David Flores on 8/28/15.
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#import "LightsOutDetectorPlugin.h"
-#import "LightsOutDetectorNode.h"
+#include "DAFLightsOutDetectorNode.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@implementation LightsOutDetectorPlugin
+@implementation DAFLightsOutDetectorNode
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ (NSString*)name
+- (instancetype)init
+{
+	self = [super init];
+	if ( self  != nil )
+	{
+		
+	}
+	
+	return self;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ (NSString*)defaultName
 {
     return @"Lights Out Detector View";
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ (NSString*)description
++ (NSString*)processClassName
 {
-    return @"Created by David Flores on 8/28/15";
-}
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ (NSArray*)nodeClasses
-{
-    return @[[LightsOutDetectorNode class]];
+    return @"DAFLightsOutDetectorPatch";
 }
 
 @end

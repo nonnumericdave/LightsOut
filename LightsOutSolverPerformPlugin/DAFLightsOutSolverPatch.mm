@@ -1,15 +1,15 @@
 //
-//  LightsOutSolverPatch.m
+//  DAFLightsOutSolverPatch.mm
 //  LightsOut
 //
 //  Created by David Flores on 8/28/15.
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#import "LightsOutSolverPatch.h"
+#include "DAFLightsOutSolverPatch.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@implementation LightsOutSolverPatch
+@implementation DAFLightsOutSolverPatch
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (void)processPatchWithContext:(PMRProcessContext*)context

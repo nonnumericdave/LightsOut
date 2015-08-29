@@ -1,15 +1,15 @@
 //
-//  LightsOutSolverNode.m
+//  DAFLightsOutSolverNode.mm
 //  LightsOut
 //
 //  Created by David Flores on 8/28/15.
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
-#import "LightsOutSolverNode.h"
+#include "DAFLightsOutSolverNode.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-@implementation LightsOutSolverNode
+@implementation DAFLightsOutSolverNode
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 + (NSString*)defaultName
@@ -20,7 +20,7 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 + (NSString*)processClassName
 {
-    return @"LightsOutSolverPatch";
+    return @"DAFLightsOutSolverPatch";
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
