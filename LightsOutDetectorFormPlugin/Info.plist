@@ -23,6 +23,6 @@
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2015 David Flores. All rights reserved.</string>
 	<key>NSPrincipalClass</key>
-	<string>LightsOutPlugin</string>
+	<string>DAFLightsOutDetectorPlugin</string>
 </dict>
 </plist>
