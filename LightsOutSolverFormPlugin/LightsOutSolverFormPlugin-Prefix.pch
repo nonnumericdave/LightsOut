@@ -1,0 +1,13 @@
+//
+//  LightsOutSolverFormPlugin-Prefix.pch
+//  LightsOut
+//
+//  Created by David Flores on 8/28/15.
+//  Copyright (c) 2015 David Flores. All rights reserved.
+//
+
+#ifdef __OBJC__
+#   import <Foundation/Foundation.h>
+#   import <RelativeInterfaceMac/RelativeInterface.h>
+#   import <Former/Former.h>
+#endif
