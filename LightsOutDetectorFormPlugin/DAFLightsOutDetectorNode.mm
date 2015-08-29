@@ -15,9 +15,14 @@
 - (instancetype)init
 {
 	self = [super init];
-	if ( self  != nil )
+
+	if ( self != nil )
 	{
+		FMRArrayOutputPort* pArrayOutputPort =
+			[[FMRArrayOutputPort alloc] initWithName:@"Board State Array"
+										   uniqueKey:@"Form.boardState"];
 		
+		[self addPort:pArrayOutputPort portGroup:@"DAFLightsOutDetectorNode"];
 	}
 	
 	return self;
