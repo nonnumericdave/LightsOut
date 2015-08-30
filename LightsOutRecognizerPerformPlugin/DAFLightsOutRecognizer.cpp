@@ -517,6 +517,9 @@ IdentifyStateMatrixFromSquareImage(const cv::Mat& kmatSquareImage, const float k
 	if ( kuLineCount < 2 )
 		return {{}, 0};
 	
+	double rMinQuadrilateralArea = std::numeric_limits<double>::max();
+	double rMaxQuadrilateralArea = std::numeric_limits<double>::min();
+	
 	std::vector<std::vector<cv::Point> > vvpointConvexQuadrilaterals;
 	for (std::size_t uHorizontalLineIndex = 0;
 		 uHorizontalLineIndex < (kuLineCount - 1);
@@ -534,8 +537,20 @@ IdentifyStateMatrixFromSquareImage(const cv::Mat& kmatSquareImage, const float k
 			});
 			
 			vvpointConvexQuadrilaterals.push_back(vpointConvexQuadrilateral);
+			
+			double rQuadrilateralArea = cv::contourArea(vpointConvexQuadrilateral);
+			
+			if ( rQuadrilateralArea < rMinQuadrilateralArea )
+				rMinQuadrilateralArea = rQuadrilateralArea;
+			
+			if ( rQuadrilateralArea > rMaxQuadrilateralArea )
+				rMaxQuadrilateralArea = rQuadrilateralArea;
 		}
 	}
+	
+	if ( (rMaxQuadrilateralArea < std::numeric_limits<double>::min()) ||
+		  ((rMinQuadrilateralArea / rMaxQuadrilateralArea) < 0.75) )
+		return {{}, 0};
 	
 	std::vector<cv::Mat> vmatSquareElementImages =
 		WarpConvexQuadrilateralsInImageToSquareImages(kmatSquareImage,
