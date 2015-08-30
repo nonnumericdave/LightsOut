@@ -55,7 +55,6 @@ static std::mutex g_mutex;
 				   premultipliedAlpha:NO
 						  pixelFormat:GL_RGBA];
 
-	
 	::dispatch_async(::dispatch_get_main_queue(),
 					^void(void)
 					{

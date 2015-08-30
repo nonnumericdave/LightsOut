@@ -307,10 +307,10 @@
 			children = (
 				B3540FCA1B9146EF0076176E /* DAFLightsOutRecognizerPatch.h */,
 				B3540FCC1B9146EF0076176E /* DAFLightsOutRecognizerPatch.mm */,
-				B3214C841B9190340075EF9E /* DAFOpenCVCamera.h */,
-				B3214C851B9190340075EF9E /* DAFOpenCVCamera.mm */,
 				B34E20C71B925BCD00B40C04 /* DAFLightsOutRecognizer.h */,
 				B34E20C61B925BCD00B40C04 /* DAFLightsOutRecognizer.cpp */,
+				B3214C841B9190340075EF9E /* DAFOpenCVCamera.h */,
+				B3214C851B9190340075EF9E /* DAFOpenCVCamera.mm */,
 				B3540FC11B9146EE0076176E /* Supporting Files */,
 			);
 			path = LightsOutRecognizerPerformPlugin;

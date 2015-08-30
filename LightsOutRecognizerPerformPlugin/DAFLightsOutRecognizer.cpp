@@ -425,7 +425,7 @@ IdentifyElementStateFromSquareImage(const cv::Mat& kmatSquareImage)
 		
 		for (std::size_t uX = 0; uX < sizePreprocessed.width; ++uX)
 		{
-			if ( pucPreprocessedImageRow[uX] > 127 )
+			if ( pucPreprocessedImageRow[uX] < 128 )
 			{
 				const std::size_t kuXDistanceFromCenterX =
 					(uX > kuCenterXY) ?
@@ -445,7 +445,7 @@ IdentifyElementStateFromSquareImage(const cv::Mat& kmatSquareImage)
 	}
 	
 	const std::size_t kuThreshold =
-		(sizePreprocessed.height * sizePreprocessed.height) * 0.10;
+		(sizePreprocessed.height * sizePreprocessed.height) * 0.33;
 
 	return uStateSum > kuThreshold;
 }
