@@ -159,6 +159,7 @@
 		B35410BD1B916AFF0076176E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		B35410BE1B916AFF0076176E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		B35410C61B916B0B0076176E /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = Frameworks/opencv2.framework; sourceTree = SOURCE_ROOT; };
+		B37D97B91B92DFA20090F6B3 /* DAFImplicitHeap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFImplicitHeap.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +306,7 @@
 		B3540FC01B9146EE0076176E /* LightsOutRecognizerPerformPlugin */ = {
 			isa = PBXGroup;
 			children = (
+				B37D97B91B92DFA20090F6B3 /* DAFImplicitHeap.h */,
 				B3540FCA1B9146EF0076176E /* DAFLightsOutRecognizerPatch.h */,
 				B3540FCC1B9146EF0076176E /* DAFLightsOutRecognizerPatch.mm */,
 				B34E20C71B925BCD00B40C04 /* DAFLightsOutRecognizer.h */,
