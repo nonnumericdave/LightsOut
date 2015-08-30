@@ -7,6 +7,7 @@
 //
 
 #include "DAFLightsOutRecognizer.h"
+#include "DAFImplicitHeap.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
@@ -414,6 +415,47 @@ PreprocessImageForElementState(const cv::Mat& kmatImage)
 						  cv::THRESH_BINARY,
 						  5,
 						  2);
+	
+	DAF::ImplicitHeap<int, cv::Point> implicitHeap(3);
+	cv::Size_<std::size_t> sizePreprocessed = matPreprocessedImage.size();
+	
+	for (std::size_t uY = 0; uY < sizePreprocessed.height; ++uY)
+	{
+		uchar* pucPreprocessedImageRow = matPreprocessedImage.ptr(static_cast<int>(uY));
+		
+		for (std::size_t uX = 0; uX < sizePreprocessed.width; ++uX)
+		{
+			if ( pucPreprocessedImageRow[uX] < 128 )
+			{
+				cv::Point point(static_cast<int>(uX), static_cast<int>(uY));
+				
+				int iArea =
+					cv::floodFill(matPreprocessedImage,
+								  point,
+								  CV_RGB(64, 64, 64));
+
+				implicitHeap.Insert(iArea, point);
+			}
+		}
+	}
+	
+	std::vector<cv::Point> vpoint(implicitHeap.Values());
+	for (cv::Point& point : vpoint)
+		cv::floodFill(matPreprocessedImage, point, CV_RGB(0, 0, 0));
+	
+	for (std::size_t uY = 0; uY < sizePreprocessed.height; ++uY)
+	{
+		uchar* pucPreprocessedImageRow = matPreprocessedImage.ptr(static_cast<int>(uY));
+		
+		for (std::size_t uX = 0; uX < sizePreprocessed.width; ++uX)
+		{
+			if ( pucPreprocessedImageRow[uX] == 64 )
+			{
+				cv::Point point(static_cast<int>(uX), static_cast<int>(uY));
+				cv::floodFill(matPreprocessedImage, point, CV_RGB(255, 255, 255));
+			}
+		}
+	}
 	
 	return matPreprocessedImage;
 }
