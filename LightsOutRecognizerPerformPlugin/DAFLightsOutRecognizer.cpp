@@ -398,12 +398,12 @@ IdentifyGridInImage(const cv::Mat& kmatImage, const float krExpansionPercentage)
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
-bool
-IdentifyElementStateFromSquareImage(const cv::Mat& kmatSquareImage)
+cv::Mat
+PreprocessImageForElementState(const cv::Mat& kmatImage)
 {
 	cv::Mat matPreprocessedImage;
 	
-	cv::cvtColor(kmatSquareImage, matPreprocessedImage, CV_BGR2GRAY);
+	cv::cvtColor(kmatImage, matPreprocessedImage, CV_BGR2GRAY);
 	
 	cv::GaussianBlur(matPreprocessedImage, matPreprocessedImage, cv::Size(7, 7), 0, 0);
 	
@@ -414,6 +414,17 @@ IdentifyElementStateFromSquareImage(const cv::Mat& kmatSquareImage)
 						  cv::THRESH_BINARY,
 						  5,
 						  2);
+	
+	return matPreprocessedImage;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+static
+bool
+IdentifyElementStateFromSquareImage(const cv::Mat& kmatSquareImage)
+{
+	cv::Mat matPreprocessedImage =
+		PreprocessImageForElementState(kmatSquareImage);
 	
 	cv::Size_<std::size_t> sizePreprocessed = matPreprocessedImage.size();
 	const std::size_t kuCenterXY = sizePreprocessed.height / 2;
