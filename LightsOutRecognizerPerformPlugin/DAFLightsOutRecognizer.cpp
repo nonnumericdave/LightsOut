@@ -294,53 +294,48 @@ IdentifyIntersectionsInGrid(const std::vector<cv::Vec2f>& kvvrHorizontalRhoTheta
 		const float krVerticalRho = kvvrVerticalRhoThetaLines[uVerticalLineIndex][0];
 		const float krVerticalTheta = kvvrVerticalRhoThetaLines[uVerticalLineIndex][1];
 		
-		if ( krVerticalTheta == 0 )
+		const double krCosVerticalTheta = std::cos(krVerticalTheta);
+		const double krSinVerticalTheta = std::sin(krVerticalTheta);
+
+		const double krInitialVerticalX = krCosVerticalTheta * krVerticalRho;
+		const double krInitialVerticalY = krSinVerticalTheta * krVerticalRho;
+		
+		const cv::Point kpointVerticalA(krInitialVerticalX - 1000 * krSinVerticalTheta,
+										krInitialVerticalY + 1000 * krCosVerticalTheta);
+		const cv::Point kpointVerticalB(krInitialVerticalX + 1000 * krSinVerticalTheta,
+										krInitialVerticalY - 1000 * krCosVerticalTheta);
+		
+		for (std::size_t uHorizontalLineIndex = 0;
+			 uHorizontalLineIndex < kuHorizontalLineCount;
+			 ++uHorizontalLineIndex)
 		{
-			for (std::size_t uHorizontalLineIndex = 0;
-				 uHorizontalLineIndex < kuHorizontalLineCount;
-				 ++uHorizontalLineIndex)
-			{
-				const float krHorizontalRho = kvvrHorizontalRhoThetaLines[uHorizontalLineIndex][0];
-				const float krHorizontalTheta = kvvrHorizontalRhoThetaLines[uHorizontalLineIndex][1];
-				
-				const float krX = krVerticalRho;
-				
-				const float krY =
-					std::cos(krHorizontalTheta) / std::sin(krHorizontalTheta) * krX +
-					krHorizontalRho *
-						(std::sin(krHorizontalTheta) -
-						 std::cos(krHorizontalTheta) / std::sin(krHorizontalTheta) * std::cos(krHorizontalTheta));
-				
-				vvpointGridIntersections[uHorizontalLineIndex][uVerticalLineIndex] =
-					cv::Point(krX, krY);
-			}
-		}
-		else
-		{
-			for (std::size_t uHorizontalLineIndex = 0;
-				 uHorizontalLineIndex < kuHorizontalLineCount;
-				 ++uHorizontalLineIndex)
-			{
-				const float krHorizontalRho = kvvrHorizontalRhoThetaLines[uHorizontalLineIndex][0];
-				const float krHorizontalTheta = kvvrHorizontalRhoThetaLines[uHorizontalLineIndex][1];
-				
-				const float krX =
-					(krVerticalRho * std::cos(2 * krVerticalTheta) / std::sin(krVerticalTheta) -
-					 krHorizontalRho * std::cos(2 * krHorizontalTheta) / std::sin(krHorizontalTheta)) /
-					(std::cos(krVerticalTheta) / std::sin(krVerticalTheta) -
-					 std::cos(krHorizontalTheta) / std::sin(krHorizontalTheta));
-				
-				const float krY =
-					(krVerticalRho * std::cos(2 * krVerticalTheta) * std::cos(krHorizontalTheta) /
-					 (std::sin(krVerticalTheta) * std::sin(krHorizontalTheta)) -
-					 krHorizontalRho * std::cos(2 * krHorizontalTheta) * std::cos(krVerticalTheta)/
-					 (std::sin(krHorizontalTheta) * std::sin(krVerticalTheta))) /
-					(std::cos(krVerticalTheta) / std::sin(krVerticalTheta) -
-					 std::cos(krHorizontalTheta) / std::sin(krHorizontalTheta));
-				
-				vvpointGridIntersections[uHorizontalLineIndex][uVerticalLineIndex] =
-					cv::Point(krX, krY);
-			}
+			const float krHorizontalRho = kvvrHorizontalRhoThetaLines[uHorizontalLineIndex][0];
+			const float krHorizontalTheta = kvvrHorizontalRhoThetaLines[uHorizontalLineIndex][1];
+
+			const double krCosHorizontalTheta = std::cos(krHorizontalTheta);
+			const double krSinHorizontalTheta = std::sin(krHorizontalTheta);
+
+			const double krInitialHorizontalX = krCosHorizontalTheta * krHorizontalRho;
+			const double krInitialHorizontalY = krSinHorizontalTheta * krHorizontalRho;
+
+			const cv::Point kpointHorizontalA(krInitialHorizontalX - 1000 * krSinHorizontalTheta,
+											  krInitialHorizontalY + 1000 * krCosHorizontalTheta);
+			const cv::Point kpointHorizontalB(krInitialHorizontalX + 1000 * krSinHorizontalTheta,
+											  krInitialHorizontalY - 1000 * krCosHorizontalTheta);
+
+			const cv::Point kpointX = kpointHorizontalA - kpointVerticalA;
+			const cv::Point kpointA = kpointVerticalB - kpointVerticalA;
+			const cv::Point kpointB = kpointHorizontalB - kpointHorizontalA;
+			
+			const float krCross = kpointA.x * kpointB.y - kpointA.y * kpointB.x;
+			
+			const cv::Point kpointIntersection =
+				kpointVerticalA +
+				kpointA *
+				((kpointX.x * kpointB.y - kpointX.y * kpointB.x) / krCross);
+
+			vvpointGridIntersections[uHorizontalLineIndex][uVerticalLineIndex] =
+				kpointIntersection;
 		}
 	}
 	
