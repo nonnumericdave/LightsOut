@@ -160,6 +160,7 @@
 		B35410BE1B916AFF0076176E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		B35410C61B916B0B0076176E /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = Frameworks/opencv2.framework; sourceTree = SOURCE_ROOT; };
 		B37D97B91B92DFA20090F6B3 /* DAFImplicitHeap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFImplicitHeap.h; sourceTree = "<group>"; };
+		B3AAF8671B942399007F5F2E /* LightsOut.form */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = LightsOut.form; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +226,7 @@
 		B3540F451B91468F0076176E = {
 			isa = PBXGroup;
 			children = (
+				B3AAF8661B94237F007F5F2E /* Forms */,
 				B3540FC51B9146EF0076176E /* Frameworks */,
 				B3540F7C1B9146930076176E /* LightsOutViewer */,
 				B3540FAA1B9146EB0076176E /* LightsOutRecognizerFormPlugin */,
@@ -386,6 +388,14 @@
 				B35410141B91470A0076176E /* LightsOutSolverPerformPlugin-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B3AAF8661B94237F007F5F2E /* Forms */ = {
+			isa = PBXGroup;
+			children = (
+				B3AAF8671B942399007F5F2E /* LightsOut.form */,
+			);
+			path = Forms;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
