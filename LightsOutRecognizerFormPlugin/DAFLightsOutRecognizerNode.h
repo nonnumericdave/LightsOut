@@ -17,8 +17,8 @@
 
 // FMRNode
 + (NSString*)defaultName;
-+ (NSString *)libraryDescription;
-+ (NSString *)libraryCategory;
++ (NSString*)libraryDescription;
++ (NSString*)libraryCategory;
 + (NSString*)processClassName;
 
 @end

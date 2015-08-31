@@ -12,6 +12,11 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface DAFLightsOutSolverPlugin : FMRPlugin
 
+// FMRPlugin
++ (NSString*)name;
++ (NSString*)description;
++ (NSArray*)nodeClasses;
+
 @end
 
 #endif

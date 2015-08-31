@@ -12,30 +12,35 @@
 @implementation DAFLightsOutSolverNode
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (instancetype)init
+{
+	self = [super init];
+	
+	return self;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 + (NSString*)defaultName
 {
     return @"Lights Out Solver";
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-+ (NSString*)processClassName
++ (NSString*)libraryDescription
 {
-    return @"DAFLightsOutSolverPatch";
+	return @"";
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- (instancetype)init
++ (NSString*)libraryCategory
 {
-    if ((self = [super init]) != nil)
-	{
-        // Inputs
-        [self addPort:[[FMRPrimitiveInputPort alloc] initWithName:@"On / Off" uniqueKey:@"Form.onOffInput" defaultValue:[PMRPrimitive primitiveWithBooleanValue:NO]] portGroup:nil];
-        
-        // Outputs
-        [self addPort:[[FMRPrimitiveOutputPort alloc] initWithName:@"Color" uniqueKey:@"Form.colorOutput"] portGroup:nil];
-    }
-	
-    return self;
+	return @"Lights Out";
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ (NSString*)processClassName
+{
+    return @"DAFLightsOutSolverPatch";
 }
 
 @end

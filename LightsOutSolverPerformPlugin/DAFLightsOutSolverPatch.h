@@ -12,9 +12,6 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface DAFLightsOutSolverPatch : PMRPatch
 
-@property (nonatomic, readonly) PMRPrimitiveInputPort *onOffInput;
-@property (nonatomic, readonly) PMRPrimitiveOutputPort *colorOutput;
-
 @end
 
 #endif
