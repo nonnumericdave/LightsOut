@@ -36,6 +36,8 @@
 		B3214C831B9181320075EF9E /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3214C821B9181320075EF9E /* OpenGLES.framework */; };
 		B3214C861B9190340075EF9E /* DAFOpenCVCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = B3214C841B9190340075EF9E /* DAFOpenCVCamera.h */; };
 		B3214C871B9190340075EF9E /* DAFOpenCVCamera.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3214C851B9190340075EF9E /* DAFOpenCVCamera.mm */; };
+		B3243A3B1B9433000081E517 /* DAFLightsOutSolver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3243A391B9433000081E517 /* DAFLightsOutSolver.cpp */; };
+		B3243A3C1B9433000081E517 /* DAFLightsOutSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = B3243A3A1B9433000081E517 /* DAFLightsOutSolver.h */; };
 		B34E20C81B925BCD00B40C04 /* DAFLightsOutRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B34E20C61B925BCD00B40C04 /* DAFLightsOutRecognizer.cpp */; };
 		B34E20C91B925BCD00B40C04 /* DAFLightsOutRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B34E20C71B925BCD00B40C04 /* DAFLightsOutRecognizer.h */; };
 		B3540F801B9146930076176E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F7F1B9146930076176E /* main.m */; };
@@ -108,6 +110,8 @@
 		B3214C821B9181320075EF9E /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
 		B3214C841B9190340075EF9E /* DAFOpenCVCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAFOpenCVCamera.h; sourceTree = "<group>"; };
 		B3214C851B9190340075EF9E /* DAFOpenCVCamera.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFOpenCVCamera.mm; sourceTree = "<group>"; };
+		B3243A391B9433000081E517 /* DAFLightsOutSolver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAFLightsOutSolver.cpp; sourceTree = "<group>"; };
+		B3243A3A1B9433000081E517 /* DAFLightsOutSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutSolver.h; sourceTree = "<group>"; };
 		B34E20C61B925BCD00B40C04 /* DAFLightsOutRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAFLightsOutRecognizer.cpp; sourceTree = "<group>"; };
 		B34E20C71B925BCD00B40C04 /* DAFLightsOutRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutRecognizer.h; sourceTree = "<group>"; };
 		B3540F7B1B9146930076176E /* LightsOutViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightsOutViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -374,6 +378,8 @@
 		B35410111B91470A0076176E /* LightsOutSolverPerformPlugin */ = {
 			isa = PBXGroup;
 			children = (
+				B3243A3A1B9433000081E517 /* DAFLightsOutSolver.h */,
+				B3243A391B9433000081E517 /* DAFLightsOutSolver.cpp */,
 				B35410161B91470B0076176E /* DAFLightsOutSolverPatch.h */,
 				B35410181B91470B0076176E /* DAFLightsOutSolverPatch.mm */,
 				B35410121B91470A0076176E /* Supporting Files */,
@@ -418,6 +424,7 @@
 			files = (
 				B35410151B91470A0076176E /* LightsOutSolverPerformPlugin-Prefix.pch in Headers */,
 				B35410171B91470B0076176E /* DAFLightsOutSolverPatch.h in Headers */,
+				B3243A3C1B9433000081E517 /* DAFLightsOutSolver.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -669,6 +676,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3243A3B1B9433000081E517 /* DAFLightsOutSolver.cpp in Sources */,
 				B35410191B91470B0076176E /* DAFLightsOutSolverPatch.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
