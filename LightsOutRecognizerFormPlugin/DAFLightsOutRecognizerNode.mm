@@ -14,18 +14,18 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (instancetype)init
 {
-	self = [super init];
+    self = [super init];
 
-	if ( self != nil )
-	{
-		FMRArrayOutputPort* pArrayOutputPort =
-			[[FMRArrayOutputPort alloc] initWithName:@"Board State Array"
-										   uniqueKey:@"Form.boardState"];
-		
-		[self addPort:pArrayOutputPort portGroup:@"DAFLightsOutRecognizerNode"];
-	}
-	
-	return self;
+    if ( self != nil )
+    {
+        FMRArrayOutputPort* pArrayOutputPort =
+            [[FMRArrayOutputPort alloc] initWithName:@"Board State Array"
+                                           uniqueKey:@"Form.boardState"];
+        
+        [self addPort:pArrayOutputPort portGroup:@"DAFLightsOutRecognizerNode"];
+    }
+    
+    return self;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -37,13 +37,13 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 + (NSString*)libraryDescription
 {
-	return @"";
+    return @"";
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 + (NSString*)libraryCategory
 {
-	return @"Lights Out";
+    return @"Lights Out";
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
