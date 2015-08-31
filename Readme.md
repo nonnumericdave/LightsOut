@@ -11,4 +11,4 @@ In order to build this Xcode project, you will need to install the OpenCV and Fo
 The goal of this application is to automagically locate a "Lights Out" game board, along with its state, using the camera on the device.  After the game board has been detected, the application will then give the user an opportunity to "solve" the game.
 
 ### Todo
-Detecting the "Lights Out" game board state is done, and the backend for the solver is complete.  All that is left is to complete the Form solver plugin which will solve the game in an animated manner.
+Detecting the "Lights Out" game board state is done -- at least, detecting it from a drawing, as I don't actually know if a physical version exists.  Also, the backend for the solver is complete.  All that is left is to complete the Form solver plugin which will solve the game in an animated manner.  I might also craft up a version of the game to run on an Ableton Push whevever I have some time.
