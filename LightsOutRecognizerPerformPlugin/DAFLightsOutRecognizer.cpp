@@ -348,9 +348,9 @@ std::vector<std::vector<cv::Point> >
 IdentifyGridInImage(const cv::Mat& kmatImage, const float krExpansionPercentage)
 {
 	std::vector<cv::Vec2f> vvrRhoThetaLines;
-	cv::HoughLines(kmatImage, vvrRhoThetaLines, 1, CV_PI / 180.0, 175);
+	cv::HoughLines(kmatImage, vvrRhoThetaLines, 1, CV_PI / 180.0, 150);
 	
-	const float krThetaDeltaThreshold = CV_PI * 5 / 180.0;
+	const float krThetaDeltaThreshold = CV_PI * 15 / 180.0;
 	
 	const cv::Size_<float> ksizeImage = kmatImage.size();
 	const float krRhoDeltaThreshold = (ksizeImage.width + ksizeImage.height) * krExpansionPercentage / 2.0;
@@ -533,7 +533,7 @@ IdentifyStateMatrixFromSquareImage(const cv::Mat& kmatSquareImage, const float k
 			
 			vvpointConvexQuadrilaterals.push_back(vpointConvexQuadrilateral);
 			
-			double rQuadrilateralArea = cv::contourArea(vpointConvexQuadrilateral);
+			double rQuadrilateralArea = std::fabs(cv::contourArea(vpointConvexQuadrilateral));
 			
 			if ( rQuadrilateralArea < rMinQuadrilateralArea )
 				rMinQuadrilateralArea = rQuadrilateralArea;
@@ -544,7 +544,7 @@ IdentifyStateMatrixFromSquareImage(const cv::Mat& kmatSquareImage, const float k
 	}
 	
 	if ( (rMaxQuadrilateralArea < std::numeric_limits<double>::min()) ||
-		  ((rMinQuadrilateralArea / rMaxQuadrilateralArea) < 0.75) )
+		  ((rMinQuadrilateralArea / rMaxQuadrilateralArea) < 0.5) )
 		return {{}, 0};
 	
 	std::vector<cv::Mat> vmatSquareElementImages =
