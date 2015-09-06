@@ -8,8 +8,10 @@
 
 #if defined(__cplusplus)
 #	include <algorithm>
+#   include <cmath>
 #	include <cstddef>
 #	include <string>
+#   include <thread>
 #	include <vector>
 #endif
 

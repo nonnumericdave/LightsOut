@@ -44,6 +44,8 @@
 		B3525F3C1B9BD29500E9A795 /* RelativeInterfaceMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */; };
 		B3525F3D1B9BD29600E9A795 /* RelativeInterfaceMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */; };
 		B3525F3E1B9BD30400E9A795 /* Former.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540FB01B9146EE0076176E /* Former.framework */; };
+		B3525F411B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B3525F3F1B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.cpp */; };
+		B3525F421B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.h in Headers */ = {isa = PBXBuildFile; fileRef = B3525F401B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.h */; };
 		B3540F801B9146930076176E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F7F1B9146930076176E /* main.m */; };
 		B3540F831B9146930076176E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F821B9146930076176E /* AppDelegate.m */; };
 		B3540F861B9146930076176E /* ConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F851B9146930076176E /* ConnectViewController.m */; };
@@ -114,6 +116,8 @@
 		B3243A3A1B9433000081E517 /* DAFLightsOutSolver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutSolver.h; sourceTree = "<group>"; };
 		B34E20C61B925BCD00B40C04 /* DAFLightsOutRecognizer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAFLightsOutRecognizer.cpp; sourceTree = "<group>"; };
 		B34E20C71B925BCD00B40C04 /* DAFLightsOutRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutRecognizer.h; sourceTree = "<group>"; };
+		B3525F3F1B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = DAFLightsOutSolutionAnimator.cpp; sourceTree = "<group>"; };
+		B3525F401B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutSolutionAnimator.h; sourceTree = "<group>"; };
 		B3540F7B1B9146930076176E /* LightsOutViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightsOutViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3540F7E1B9146930076176E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3540F7F1B9146930076176E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -378,6 +382,8 @@
 		B35410111B91470A0076176E /* LightsOutSolverPerformPlugin */ = {
 			isa = PBXGroup;
 			children = (
+				B3525F401B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.h */,
+				B3525F3F1B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.cpp */,
 				B3243A3A1B9433000081E517 /* DAFLightsOutSolver.h */,
 				B3243A391B9433000081E517 /* DAFLightsOutSolver.cpp */,
 				B35410161B91470B0076176E /* DAFLightsOutSolverPatch.h */,
@@ -424,6 +430,7 @@
 			files = (
 				B35410151B91470A0076176E /* LightsOutSolverPerformPlugin-Prefix.pch in Headers */,
 				B35410171B91470B0076176E /* DAFLightsOutSolverPatch.h in Headers */,
+				B3525F421B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.h in Headers */,
 				B3243A3C1B9433000081E517 /* DAFLightsOutSolver.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -678,6 +685,7 @@
 			files = (
 				B3243A3B1B9433000081E517 /* DAFLightsOutSolver.cpp in Sources */,
 				B35410191B91470B0076176E /* DAFLightsOutSolverPatch.mm in Sources */,
+				B3525F411B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
