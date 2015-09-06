@@ -117,7 +117,7 @@ static std::mutex g_mutex;
         _pVideoCamera.defaultAVCaptureDevicePosition = AVCaptureDevicePositionBack;
         _pVideoCamera.defaultAVCaptureSessionPreset = AVCaptureSessionPreset1280x720;
         _pVideoCamera.defaultAVCaptureVideoOrientation = AVCaptureVideoOrientationPortrait;
-        _pVideoCamera.defaultFPS = 30;
+        _pVideoCamera.defaultFPS = 10;
         _pVideoCamera.grayscaleMode = NO;
         _pVideoCamera.delegate = self;
         
