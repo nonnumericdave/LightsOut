@@ -12,10 +12,12 @@
 DAF::LightsOutSolutionAnimator::LightsOutSolutionAnimator(ILightsOutSolutionAnimatorSink* pLightsOutSolutionAnimatorSink,
                                                           double rToggleSelectionFrameDeltaSeconds,
                                                           double rToggleDominoFrameDeltaSeconds,
+                                                          double rAnimationDoneSleepSeconds,
                                                           const std::vector<bool>& kvbOptimalSolutionMatrix) :
     _kpLightsOutSolutionAnimatorSink(pLightsOutSolutionAnimatorSink),
     _krToggleSelectionFrameDeltaSeconds(rToggleSelectionFrameDeltaSeconds),
     _krToggleDominoFrameDeltaSeconds(rToggleDominoFrameDeltaSeconds),
+    _krAnimationDoneSleepSeconds(rAnimationDoneSleepSeconds),
     _kvbOptimalSolutionMatrix(kvbOptimalSolutionMatrix),
     _rNextToggleFrameDeltaSeconds(0.0),
     _bAnimationHasEnded(false),
@@ -162,7 +164,8 @@ DAF::LightsOutSolutionAnimator::AnimationThread()
     
     lock.unlock();
     
-    std::this_thread::sleep_for(std::chrono::seconds(15));
+    const long long kllSleepMilliseconds = _krAnimationDoneSleepSeconds * 1000;
+    std::this_thread::sleep_for(std::chrono::milliseconds(kllSleepMilliseconds));
     
     lock.lock();
     

@@ -200,8 +200,9 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     
     _pLightsOutSolutionAnimator =
         new DAF::LightsOutSolutionAnimator(_pLightsOutSolutionAnimatorSink,
-                                           2,
-                                           0.5,
+                                           1,
+                                           0.25,
+                                           5,
                                            kvbOptimalSolutionMatrix);
     
     _pLightsOutSolutionAnimator->StartAnimation();

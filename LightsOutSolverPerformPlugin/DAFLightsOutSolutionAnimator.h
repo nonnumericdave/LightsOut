@@ -28,6 +28,7 @@ namespace DAF
         LightsOutSolutionAnimator(ILightsOutSolutionAnimatorSink* pLightsOutSolutionAnimatorSink,
                                   double rToggleSelectionFrameDeltaSeconds,
                                   double rToggleDominoFrameDeltaSeconds,
+                                  double rAnimationDoneSleepSeconds,
                                   const std::vector<bool>& kvbOptimalSolutionMatrix);
         ~LightsOutSolutionAnimator();
         
@@ -41,6 +42,7 @@ namespace DAF
         ILightsOutSolutionAnimatorSink* const _kpLightsOutSolutionAnimatorSink;
         const double _krToggleSelectionFrameDeltaSeconds;
         const double _krToggleDominoFrameDeltaSeconds;
+        const double _krAnimationDoneSleepSeconds;
         const std::vector<bool> _kvbOptimalSolutionMatrix;
         
         std::thread _threadAnimator;
