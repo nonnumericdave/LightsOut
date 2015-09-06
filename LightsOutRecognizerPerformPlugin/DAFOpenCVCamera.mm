@@ -89,7 +89,7 @@ static std::mutex g_mutex;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (RIImage*)image
 {
-    std::unique_lock<std::mutex> lock(::g_mutex);
+    std::unique_lock<std::mutex> lock(_mutex);
     RIImage* pImage = _pImage;
     lock.unlock();
     
@@ -99,7 +99,7 @@ static std::mutex g_mutex;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (cv::Mat)matrix
 {
-    std::unique_lock<std::mutex> lock(::g_mutex);
+    std::unique_lock<std::mutex> lock(_mutex);
     cv::Mat matrix(_matrix);
     lock.unlock();
     
