@@ -16,6 +16,34 @@
 {
     self = [super init];
     
+    if ( self != nil )
+    {
+        FMRArrayInputPort* pArrayInputPort =
+            [[FMRArrayInputPort alloc] initWithName:@"Board State Array"
+                                          uniqueKey:@"Form.boardState"];
+        
+        [self addPort:pArrayInputPort portGroup:@"DAFLightsOutSolverNode"];
+        
+        FMRPrimitiveInputPort* pPrimitiveInputPort =
+            [[FMRPrimitiveInputPort alloc] initWithName:@"Solve Board Pulse"
+                                              uniqueKey:@"Form.solveBoardPulse"
+                                           defaultValue:[PMRPrimitive primitiveWithBooleanValue:NO]];
+        
+        [self addPort:pPrimitiveInputPort portGroup:@"DAFLightsOutSolverNode"];
+        
+        FMRPrimitiveOutputPort* pPrimitiveOutputPort =
+            [[FMRPrimitiveOutputPort alloc] initWithName:@"Solving Board"
+                                               uniqueKey:@"Form.solvingBoard"];
+        
+        [self addPort:pPrimitiveOutputPort portGroup:@"DAFLightsOutSolverNode"];
+        
+        FMRArrayOutputPort* pArrayOutputPort =
+            [[FMRArrayOutputPort alloc] initWithName:@"Board State Toggle Pulse"
+                                           uniqueKey:@"Form.boardStateTogglePulse"];
+        
+        [self addPort:pArrayOutputPort portGroup:@"DAFLightsOutSolverNode"];
+    }
+    
     return self;
 }
 

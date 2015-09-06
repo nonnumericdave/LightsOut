@@ -12,6 +12,15 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface DAFLightsOutSolverPatch : PMRPatch
 
+// PMRPatch
+- (void)processPatchWithContext:(PMRProcessContext*)pProcessContext;
+
+// DAFLightsOutSolverPatch
+@property (nonatomic, readonly) PMRArrayInputPort* boardState;
+@property (nonatomic, readonly) PMRPrimitiveInputPort* solveBoardPulse;
+@property (nonatomic, readonly) PMRPrimitiveOutputPort* solvingBoard;
+@property (nonatomic, readonly) PMRArrayOutputPort* boardStateTogglePulse;
+
 @end
 
 #endif
