@@ -14,6 +14,7 @@
 
 // PMRPatch
 - (void)processPatchWithContext:(PMRProcessContext*)pProcessContext;
+- (void)processOutput:(PMRPort*)pOutputPort context:(PMRProcessContext*)pProcessContext;
 
 // DAFLightsOutSolverPatch
 @property (nonatomic, readonly) PMRArrayInputPort* boardState;
