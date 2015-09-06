@@ -33,7 +33,7 @@ namespace DAF
         ~LightsOutSolutionAnimator();
         
         void StartAnimation();
-        void UpdateFrameDelta(double rFrameDeltaSeconds);
+        bool UpdateFrameDelta(double rFrameDeltaSeconds);
         
     private:
         // LightsOutSolutionAnimator

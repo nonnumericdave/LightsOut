@@ -48,7 +48,7 @@ DAF::LightsOutSolutionAnimator::StartAnimation()
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-void
+bool
 DAF::LightsOutSolutionAnimator::UpdateFrameDelta(double rFrameDeltaSeconds)
 {
     std::unique_lock<std::mutex> lock(_mutexAnimator);
@@ -56,12 +56,12 @@ DAF::LightsOutSolutionAnimator::UpdateFrameDelta(double rFrameDeltaSeconds)
     if ( _bAnimationHasEnded )
     {
         _kpLightsOutSolutionAnimatorSink->AnimationHasEnded();
-        return;
+        return false;
     }
     
     _rNextToggleFrameDeltaSeconds -= rFrameDeltaSeconds;
     if ( _bConsumerNeedsNextFrame || _rNextToggleFrameDeltaSeconds > 0.0 )
-        return;
+        return false;
     
     _kpLightsOutSolutionAnimatorSink->ToggleStateOfElements(_kvuToggleElementIndices);
     _kvuToggleElementIndices.clear();
@@ -69,6 +69,8 @@ DAF::LightsOutSolutionAnimator::UpdateFrameDelta(double rFrameDeltaSeconds)
     _bConsumerNeedsNextFrame = true;
     lock.unlock();
     _conditionVariableAnimator.notify_all();
+    
+    return true;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
