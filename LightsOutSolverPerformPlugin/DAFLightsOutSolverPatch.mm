@@ -15,6 +15,7 @@
 @interface DAFLightsOutSolverPatch ()
 
 // DAFLightsOutSolverPatch
+- (void)setSolvingBoardState:(BOOL)boolSolvingBoard;
 - (void)processSolution:(const std::vector<bool>&)kvbOptimalSolutionMatrix;
 - (void)processNoSolution;
 - (void)processSolutionCompletion;
@@ -104,8 +105,8 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     if ( std::floor(krBoardDimension) != std::ceil(krBoardDimension) )
         return;
     
-    [_solvingBoard.value setBooleanValue:YES];
-   
+    [self setSolvingBoardState:YES];
+
     NSMutableArray* pBoardStateTogglePulseArray =
         [NSMutableArray arrayWithCapacity:kuBoardElements];
     
@@ -169,10 +170,21 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     
     if ( ! [_solvingBoard.value booleanValue] )
         return;
-    
-    if ( _pLightsOutSolutionAnimator != nullptr )
+
+    if ( _pLightsOutSolutionAnimator != nullptr &&
+         pOutputPort == self.boardStateTogglePulse )
+    {
         _pLightsOutSolutionAnimator->UpdateFrameDelta(pProcessContext.deltaTime);
     
+        [self setShouldProcessNextFrame];
+    }
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)setSolvingBoardState:(BOOL)boolSolvingBoard
+{
+    [_solvingBoard.value setBooleanValue:boolSolvingBoard];
+
     [self setShouldProcessNextFrame];
 }
 
@@ -220,9 +232,7 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
         _pLightsOutSolutionAnimatorSink = nullptr;
     }
     
-    [_solvingBoard.value setBooleanValue:NO];
-    
-    [self setShouldProcessNextFrame];
+    [self setSolvingBoardState:NO];
 }
 
 @end
