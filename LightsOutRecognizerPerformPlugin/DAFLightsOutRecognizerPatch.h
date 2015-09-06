@@ -21,7 +21,7 @@
 
 @property (nonatomic, readonly) RIImageView* view;
 
-// DAFLightsOutRecognizerPlugin
+// DAFLightsOutRecognizerPatch
 @property (nonatomic, readonly) PMRArrayOutputPort* boardState;
 
 @end
