@@ -40,6 +40,10 @@
 		B3243A3C1B9433000081E517 /* DAFLightsOutSolver.h in Headers */ = {isa = PBXBuildFile; fileRef = B3243A3A1B9433000081E517 /* DAFLightsOutSolver.h */; };
 		B34E20C81B925BCD00B40C04 /* DAFLightsOutRecognizer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B34E20C61B925BCD00B40C04 /* DAFLightsOutRecognizer.cpp */; };
 		B34E20C91B925BCD00B40C04 /* DAFLightsOutRecognizer.h in Headers */ = {isa = PBXBuildFile; fileRef = B34E20C71B925BCD00B40C04 /* DAFLightsOutRecognizer.h */; };
+		B3525F3B1B9BD28E00E9A795 /* Former.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540FB01B9146EE0076176E /* Former.framework */; };
+		B3525F3C1B9BD29500E9A795 /* RelativeInterfaceMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */; };
+		B3525F3D1B9BD29600E9A795 /* RelativeInterfaceMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */; };
+		B3525F3E1B9BD30400E9A795 /* Former.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540FB01B9146EE0076176E /* Former.framework */; };
 		B3540F801B9146930076176E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F7F1B9146930076176E /* main.m */; };
 		B3540F831B9146930076176E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F821B9146930076176E /* AppDelegate.m */; };
 		B3540F861B9146930076176E /* ConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F851B9146930076176E /* ConnectViewController.m */; };
@@ -63,12 +67,8 @@
 		B35410AC1B914AD60076176E /* RelativeInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540F901B9146930076176E /* RelativeInterface.framework */; };
 		B35410AD1B914AE30076176E /* Performer.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3540F8E1B9146930076176E /* Performer.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B35410AE1B914AE30076176E /* RelativeInterface.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = B3540F901B9146930076176E /* RelativeInterface.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		B35410AF1B914AFC0076176E /* Former.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540FB01B9146EE0076176E /* Former.framework */; };
-		B35410B11B914AFC0076176E /* RelativeInterfaceMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */; };
 		B35410B21B914B970076176E /* Performer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540F8E1B9146930076176E /* Performer.framework */; };
 		B35410B31B914B970076176E /* RelativeInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540F901B9146930076176E /* RelativeInterface.framework */; };
-		B35410B41B914BA40076176E /* RelativeInterfaceMac.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */; };
-		B35410B51B914BA40076176E /* Former.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540FB01B9146EE0076176E /* Former.framework */; };
 		B35410B61B914BAF0076176E /* Performer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540F8E1B9146930076176E /* Performer.framework */; };
 		B35410B71B914BAF0076176E /* RelativeInterface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3540F901B9146930076176E /* RelativeInterface.framework */; };
 /* End PBXBuildFile section */
@@ -130,7 +130,7 @@
 		B3540FA91B9146EB0076176E /* LightsOutRecognizerFormPlugin.formplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightsOutRecognizerFormPlugin.formplugin; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3540FAC1B9146EB0076176E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3540FAD1B9146EB0076176E /* LightsOutRecognizerFormPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutRecognizerFormPlugin-Prefix.pch"; sourceTree = "<group>"; };
-		B3540FB01B9146EE0076176E /* Former.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Former.framework; path = ../Frameworks/Former.framework; sourceTree = "<group>"; };
+		B3540FB01B9146EE0076176E /* Former.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Former.framework; path = Frameworks/Former.framework; sourceTree = "<group>"; };
 		B3540FB41B9146EE0076176E /* DAFLightsOutRecognizerPlugin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutRecognizerPlugin.h; sourceTree = "<group>"; };
 		B3540FB51B9146EE0076176E /* DAFLightsOutRecognizerPlugin.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutRecognizerPlugin.mm; sourceTree = "<group>"; };
 		B3540FB71B9146EE0076176E /* DAFLightsOutRecognizerNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutRecognizerNode.h; sourceTree = "<group>"; };
@@ -138,8 +138,8 @@
 		B3540FBF1B9146EE0076176E /* LightsOutRecognizerPerformPlugin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LightsOutRecognizerPerformPlugin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3540FC21B9146EE0076176E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3540FC31B9146EE0076176E /* LightsOutRecognizerPerformPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutRecognizerPerformPlugin-Prefix.pch"; sourceTree = "<group>"; };
-		B3540FC61B9146EF0076176E /* Performer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Performer.framework; path = ../Frameworks/Performer.framework; sourceTree = "<group>"; };
-		B3540FC81B9146EF0076176E /* RelativeInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RelativeInterface.framework; path = ../Frameworks/RelativeInterface.framework; sourceTree = "<group>"; };
+		B3540FC61B9146EF0076176E /* Performer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Performer.framework; path = Frameworks/Performer.framework; sourceTree = "<group>"; };
+		B3540FC81B9146EF0076176E /* RelativeInterface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RelativeInterface.framework; path = Frameworks/RelativeInterface.framework; sourceTree = "<group>"; };
 		B3540FCA1B9146EF0076176E /* DAFLightsOutRecognizerPatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutRecognizerPatch.h; sourceTree = "<group>"; };
 		B3540FCC1B9146EF0076176E /* DAFLightsOutRecognizerPatch.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutRecognizerPatch.mm; sourceTree = "<group>"; };
 		B3540FFF1B91470A0076176E /* LightsOutSolverFormPlugin.formplugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightsOutSolverFormPlugin.formplugin; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,7 +154,7 @@
 		B35410141B91470A0076176E /* LightsOutSolverPerformPlugin-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutSolverPerformPlugin-Prefix.pch"; sourceTree = "<group>"; };
 		B35410161B91470B0076176E /* DAFLightsOutSolverPatch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutSolverPatch.h; sourceTree = "<group>"; };
 		B35410181B91470B0076176E /* DAFLightsOutSolverPatch.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutSolverPatch.mm; sourceTree = "<group>"; };
-		B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RelativeInterfaceMac.framework; path = ../Frameworks/RelativeInterfaceMac.framework; sourceTree = "<group>"; };
+		B35410B01B914AFC0076176E /* RelativeInterfaceMac.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RelativeInterfaceMac.framework; path = Frameworks/RelativeInterfaceMac.framework; sourceTree = "<group>"; };
 		B35410B81B916AFF0076176E /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
 		B35410B91B916AFF0076176E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
 		B35410BA1B916AFF0076176E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.4.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
@@ -183,8 +183,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B35410B11B914AFC0076176E /* RelativeInterfaceMac.framework in Frameworks */,
-				B35410AF1B914AFC0076176E /* Former.framework in Frameworks */,
+				B3525F3C1B9BD29500E9A795 /* RelativeInterfaceMac.framework in Frameworks */,
+				B3525F3E1B9BD30400E9A795 /* Former.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,8 +210,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B35410B41B914BA40076176E /* RelativeInterfaceMac.framework in Frameworks */,
-				B35410B51B914BA40076176E /* Former.framework in Frameworks */,
+				B3525F3D1B9BD29600E9A795 /* RelativeInterfaceMac.framework in Frameworks */,
+				B3525F3B1B9BD28E00E9A795 /* Former.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -848,6 +848,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/LightsOutDetectorPerformPlugin/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "LightsOutRecognizerFormPlugin/LightsOutRecognizerFormPlugin-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -872,6 +873,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/LightsOutDetectorPerformPlugin/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "LightsOutRecognizerFormPlugin/LightsOutRecognizerFormPlugin-Prefix.pch";
 				INFOPLIST_FILE = LightsOutRecognizerFormPlugin/Info.plist;
@@ -897,6 +899,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/LightsOutDetectorPerformPlugin/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LightsOutRecognizerPerformPlugin/LightsOutRecognizerPerformPlugin-Prefix.pch";
@@ -930,6 +933,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/LightsOutDetectorPerformPlugin/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LightsOutRecognizerPerformPlugin/LightsOutRecognizerPerformPlugin-Prefix.pch";
@@ -955,6 +959,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/LightsOutDetectorPerformPlugin/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "LightsOutSolverFormPlugin/LightsOutSolverFormPlugin-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -979,6 +984,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Frameworks",
+					"$(PROJECT_DIR)/LightsOutDetectorPerformPlugin/Frameworks",
 				);
 				GCC_PREFIX_HEADER = "LightsOutSolverFormPlugin/LightsOutSolverFormPlugin-Prefix.pch";
 				INFOPLIST_FILE = LightsOutSolverFormPlugin/Info.plist;
