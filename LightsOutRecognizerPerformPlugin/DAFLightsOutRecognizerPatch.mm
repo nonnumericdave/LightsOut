@@ -40,7 +40,7 @@ DispatchBoardStateResult(DAFLightsOutRecognizerPatch* pLightsOutRecognizerPatch,
     NSMutableArray* pBoardStateArray =
         [NSMutableArray arrayWithCapacity:kuBoardElements];
     
-    for (bool bElementState : kvbStateMatrix )
+    for (bool bElementState : kvbStateMatrix)
     {
         PMRPrimitive* pElementStatePrimitive =
             [PMRPrimitive primitiveWithBooleanValue:bElementState];

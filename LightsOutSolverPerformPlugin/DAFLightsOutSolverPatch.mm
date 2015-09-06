@@ -29,6 +29,8 @@ public:
     // LightsOutSolverPatchAnimatorSink
     LightsOutSolutionAnimatorSink(DAFLightsOutSolverPatch* pLightsOutSolverPatch);
     
+    void ClearStateOfElements();
+    
 private:
     // ILightsOutSolutionAnimatorSink
     virtual void AnimationHasStarted() override;
@@ -42,6 +44,16 @@ private:
 LightsOutSolutionAnimatorSink::LightsOutSolutionAnimatorSink(DAFLightsOutSolverPatch* pLightsOutSolverPatch) :
     _pLightsOutSolverPatch(pLightsOutSolverPatch)
 {
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void
+LightsOutSolutionAnimatorSink::ClearStateOfElements()
+{
+    NSArray* pBoardStateTogglePulseArray = _pLightsOutSolverPatch.boardStateTogglePulse.value;
+    
+    for (PMRPrimitive* pElementTogglePulsePrimitive in pBoardStateTogglePulseArray)
+        [pElementTogglePulsePrimitive setBooleanValue:NO];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -61,16 +73,9 @@ LightsOutSolutionAnimatorSink::AnimationHasEnded()
 void
 LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size_t>& kvuToggleElementIndices)
 {
+    ClearStateOfElements();
+    
     NSArray* pBoardStateTogglePulseArray = _pLightsOutSolverPatch.boardStateTogglePulse.value;
-
-    const NSUInteger kuBoardElements = [pBoardStateTogglePulseArray count];    
-    for (NSUInteger uIndex = 0; uIndex < kuBoardElements; ++uIndex)
-    {
-        PMRPrimitive* pElementTogglePulsePrimitive =
-            pBoardStateTogglePulseArray[uIndex];
-        
-        [pElementTogglePulsePrimitive setBooleanValue:NO];
-    }
     
     for (const std::size_t kvuElementIndex : kvuToggleElementIndices)
     {
@@ -84,6 +89,8 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @implementation DAFLightsOutSolverPatch
 {
+    BOOL _boolDidUpdateLastFrame;
+    
     LightsOutSolutionAnimatorSink* _pLightsOutSolutionAnimatorSink;
     DAF::LightsOutSolutionAnimator* _pLightsOutSolutionAnimator;
 }
@@ -174,8 +181,14 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     if ( _pLightsOutSolutionAnimator != nullptr &&
          pOutputPort == self.boardStateTogglePulse )
     {
-        _pLightsOutSolutionAnimator->UpdateFrameDelta(pProcessContext.deltaTime);
-    
+        BOOL boolDidUpdateFrame =
+            _pLightsOutSolutionAnimator->UpdateFrameDelta(pProcessContext.deltaTime);
+
+        if ( _boolDidUpdateLastFrame && ! boolDidUpdateFrame )
+           _pLightsOutSolutionAnimatorSink->ClearStateOfElements();
+        
+        _boolDidUpdateLastFrame = boolDidUpdateFrame;
+
         [self setShouldProcessNextFrame];
     }
 }
@@ -194,6 +207,8 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     if ( _pLightsOutSolutionAnimatorSink != nullptr ||
          _pLightsOutSolutionAnimator != nullptr )
         return;
+    
+    _boolDidUpdateLastFrame = NO;
     
     _pLightsOutSolutionAnimatorSink =
         new LightsOutSolutionAnimatorSink(self);
@@ -232,6 +247,8 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
         delete _pLightsOutSolutionAnimatorSink;
         _pLightsOutSolutionAnimatorSink = nullptr;
     }
+    
+    _boolDidUpdateLastFrame = NO;
     
     [self setSolvingBoardState:NO];
 }
