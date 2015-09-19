@@ -8,9 +8,6 @@
 
 #include "DAFLightsOutSolverPatch.h"
 
-#include "DAFLightsOutSolutionAnimator.h"
-#include "DAFLightsOutSolver.h"
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface DAFLightsOutSolverPatch ()
 

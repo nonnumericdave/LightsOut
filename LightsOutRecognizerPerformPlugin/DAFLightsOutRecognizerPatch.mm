@@ -7,7 +7,6 @@
 //
 
 #include "DAFLightsOutRecognizerPatch.h"
-#include "DAFLightsOutRecognizer.h"
 #include "DAFOpenCVCamera.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

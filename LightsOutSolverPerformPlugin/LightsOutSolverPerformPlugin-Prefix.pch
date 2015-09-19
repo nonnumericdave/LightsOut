@@ -13,6 +13,8 @@
 #	include <string>
 #   include <thread>
 #	include <vector>
+#   include <DAFLightsOutSolutionAnimator.h>
+#   include <DAFLightsOutSolver.h>
 #endif
 
 #ifdef __OBJC__
