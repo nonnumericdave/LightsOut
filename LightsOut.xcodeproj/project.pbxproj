@@ -91,6 +91,7 @@
 		B3869FCC1BAD41C90055E8A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FCB1BAD41C90055E8A0 /* CoreGraphics.framework */; };
 		B3869FCE1BAD41D70055E8A0 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FCD1BAD41D70055E8A0 /* AssetsLibrary.framework */; };
 		B3869FD01BAD41F70055E8A0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FCF1BAD41F70055E8A0 /* QuartzCore.framework */; };
+		B3869FD31BADDEE40055E8A0 /* DAFLightsOutBoardView.mm in Sources */ = {isa = PBXBuildFile; fileRef = B3869FD21BADDEE40055E8A0 /* DAFLightsOutBoardView.mm */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -231,6 +232,8 @@
 		B3869FCB1BAD41C90055E8A0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		B3869FCD1BAD41D70055E8A0 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
 		B3869FCF1BAD41F70055E8A0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
+		B3869FD11BADDEE40055E8A0 /* DAFLightsOutBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutBoardView.h; sourceTree = "<group>"; };
+		B3869FD21BADDEE40055E8A0 /* DAFLightsOutBoardView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = DAFLightsOutBoardView.mm; sourceTree = "<group>"; };
 		B3AAF8671B942399007F5F2E /* LightsOut.form */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = LightsOut.form; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -520,6 +523,8 @@
 			children = (
 				B36E20E61BAD357E0056351B /* AppDelegate.h */,
 				B36E20E71BAD357E0056351B /* AppDelegate.mm */,
+				B3869FD11BADDEE40055E8A0 /* DAFLightsOutBoardView.h */,
+				B3869FD21BADDEE40055E8A0 /* DAFLightsOutBoardView.mm */,
 				B36E20E41BAD357E0056351B /* main.mm */,
 				B36E20E91BAD357E0056351B /* ViewController.h */,
 				B36E20EA1BAD357E0056351B /* ViewController.mm */,
@@ -900,6 +905,7 @@
 				B36E20EB1BAD357E0056351B /* ViewController.mm in Sources */,
 				B36E20E81BAD357E0056351B /* AppDelegate.mm in Sources */,
 				B36E20E51BAD357E0056351B /* main.mm in Sources */,
+				B3869FD31BADDEE40055E8A0 /* DAFLightsOutBoardView.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
