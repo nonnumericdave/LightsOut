@@ -84,6 +84,13 @@
 		B36E20F01BAD357E0056351B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B36E20EF1BAD357E0056351B /* Assets.xcassets */; };
 		B36E20F31BAD357E0056351B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36E20F11BAD357E0056351B /* LaunchScreen.storyboard */; };
 		B36E20FB1BAD37FB0056351B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36E20FA1BAD37FB0056351B /* UIKit.framework */; };
+		B3869FC41BAD3AC80055E8A0 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410C61B916B0B0076176E /* opencv2.framework */; };
+		B3869FC61BAD41850055E8A0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FC51BAD41850055E8A0 /* AVFoundation.framework */; };
+		B3869FC81BAD41A80055E8A0 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FC71BAD41A80055E8A0 /* CoreMedia.framework */; };
+		B3869FCA1BAD41BB0055E8A0 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FC91BAD41BB0055E8A0 /* CoreVideo.framework */; };
+		B3869FCC1BAD41C90055E8A0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FCB1BAD41C90055E8A0 /* CoreGraphics.framework */; };
+		B3869FCE1BAD41D70055E8A0 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FCD1BAD41D70055E8A0 /* AssetsLibrary.framework */; };
+		B3869FD01BAD41F70055E8A0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FCF1BAD41F70055E8A0 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +225,12 @@
 		B36E20F91BAD36340056351B /* LightsOutViewer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutViewer-Prefix.pch"; sourceTree = "<group>"; };
 		B36E20FA1BAD37FB0056351B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		B37D97B91B92DFA20090F6B3 /* DAFImplicitHeap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAFImplicitHeap.h; sourceTree = "<group>"; };
+		B3869FC51BAD41850055E8A0 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		B3869FC71BAD41A80055E8A0 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreMedia.framework; sourceTree = DEVELOPER_DIR; };
+		B3869FC91BAD41BB0055E8A0 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreVideo.framework; sourceTree = DEVELOPER_DIR; };
+		B3869FCB1BAD41C90055E8A0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
+		B3869FCD1BAD41D70055E8A0 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/AssetsLibrary.framework; sourceTree = DEVELOPER_DIR; };
+		B3869FCF1BAD41F70055E8A0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
 		B3AAF8671B942399007F5F2E /* LightsOut.form */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = LightsOut.form; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -246,8 +259,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3214C7B1B9174650075EF9E /* AssetsLibrary.framework in Frameworks */,
 				B3214C7C1B9174650075EF9E /* AVFoundation.framework in Frameworks */,
+				B3214C7B1B9174650075EF9E /* AssetsLibrary.framework in Frameworks */,
 				B3214C7D1B9174650075EF9E /* CoreGraphics.framework in Frameworks */,
 				B3214C7E1B9174650075EF9E /* CoreMedia.framework in Frameworks */,
 				B3214C7F1B9174650075EF9E /* CoreVideo.framework in Frameworks */,
@@ -290,7 +303,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3869FC61BAD41850055E8A0 /* AVFoundation.framework in Frameworks */,
+				B3869FCE1BAD41D70055E8A0 /* AssetsLibrary.framework in Frameworks */,
+				B3869FCC1BAD41C90055E8A0 /* CoreGraphics.framework in Frameworks */,
+				B3869FC81BAD41A80055E8A0 /* CoreMedia.framework in Frameworks */,
+				B3869FCA1BAD41BB0055E8A0 /* CoreVideo.framework in Frameworks */,
+				B3869FD01BAD41F70055E8A0 /* QuartzCore.framework in Frameworks */,
 				B36E20FB1BAD37FB0056351B /* UIKit.framework in Frameworks */,
+				B3869FC41BAD3AC80055E8A0 /* opencv2.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,6 +427,12 @@
 		B3540FC51B9146EF0076176E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3869FCF1BAD41F70055E8A0 /* QuartzCore.framework */,
+				B3869FCD1BAD41D70055E8A0 /* AssetsLibrary.framework */,
+				B3869FCB1BAD41C90055E8A0 /* CoreGraphics.framework */,
+				B3869FC91BAD41BB0055E8A0 /* CoreVideo.framework */,
+				B3869FC71BAD41A80055E8A0 /* CoreMedia.framework */,
+				B3869FC51BAD41850055E8A0 /* AVFoundation.framework */,
 				B36E20FA1BAD37FB0056351B /* UIKit.framework */,
 				B35410B81B916AFF0076176E /* AssetsLibrary.framework */,
 				B35410B91B916AFF0076176E /* AVFoundation.framework */,
@@ -1345,6 +1371,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LightsOutViewer/LightsOutViewer-Prefix.pch";
 				INFOPLIST_FILE = LightsOutViewer/Info.plist;
@@ -1362,6 +1393,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "LightsOutViewer/LightsOutViewer-Prefix.pch";
 				INFOPLIST_FILE = LightsOutViewer/Info.plist;
@@ -1448,6 +1484,7 @@
 				B36E20D11BAD20500056351B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B36E20F51BAD357E0056351B /* Build configuration list for PBXNativeTarget "LightsOutViewer" */ = {
 			isa = XCConfigurationList;
@@ -1456,6 +1493,7 @@
 				B36E20F71BAD357E0056351B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

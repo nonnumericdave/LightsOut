@@ -6,6 +6,11 @@
 //  Copyright (c) 2015 David Flores. All rights reserved.
 //
 
+#if defined(__cplusplus)
+#	include <opencv2/opencv.hpp>
+#endif
+
 #ifdef __OBJC__
 #   import <UIKit/UIKit.h>
+#	import <opencv2/highgui/cap_ios.h>
 #endif

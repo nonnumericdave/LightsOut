@@ -9,7 +9,15 @@
 #ifndef ViewController_h
 #define ViewController_h
 
-@interface ViewController : UIViewController
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@interface ViewController : UIViewController <CvVideoCameraDelegate>
+
+// CvVideoCameraDelegate
+- (void)processImage:(cv::Mat&)matImage;
+
+// UIViewController
+- (void)viewDidLoad;
+- (void)viewDidAppear:(BOOL)boolAnimated;
 
 @end
 
