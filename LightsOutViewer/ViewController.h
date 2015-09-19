@@ -16,6 +16,8 @@
 - (void)processImage:(cv::Mat&)matImage;
 
 // UIViewController
+@property (strong, nonatomic) IBOutlet UIView *videoCameraParentView;
+
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)boolAnimated;
 

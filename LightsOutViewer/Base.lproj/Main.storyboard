@@ -16,8 +16,24 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CV1-LU-gSx">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CV1-LU-gSx" firstAttribute="left" secondItem="8bC-Xf-vdC" secondAttribute="left" id="S1k-kv-3RF"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="CV1-LU-gSx" secondAttribute="bottom" id="SAN-E3-jmR"/>
+                            <constraint firstItem="CV1-LU-gSx" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="T5P-gm-Crz"/>
+                            <constraint firstAttribute="right" secondItem="CV1-LU-gSx" secondAttribute="right" id="aQd-TI-I1U"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="videoCameraParentView" destination="CV1-LU-gSx" id="PdX-Wj-S8J"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
