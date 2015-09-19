@@ -49,7 +49,7 @@
 		B3540F801B9146930076176E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F7F1B9146930076176E /* main.m */; };
 		B3540F831B9146930076176E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F821B9146930076176E /* AppDelegate.m */; };
 		B3540F861B9146930076176E /* ConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3540F851B9146930076176E /* ConnectViewController.m */; };
-		B3540F881B9146930076176E /* LightsOutViewer-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = B3540F871B9146930076176E /* LightsOutViewer-Prefix.pch */; };
+		B3540F881B9146930076176E /* LightsOutFormViewer-Prefix.pch in Resources */ = {isa = PBXBuildFile; fileRef = B3540F871B9146930076176E /* LightsOutFormViewer-Prefix.pch */; };
 		B3540F8A1B9146930076176E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B3540F891B9146930076176E /* Images.xcassets */; };
 		B3540F8C1B9146930076176E /* Connect@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B3540F8B1B9146930076176E /* Connect@2x.png */; };
 		B3540F941B9146930076176E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3540F921B9146930076176E /* LaunchScreen.xib */; };
@@ -147,14 +147,14 @@
 		B3525F401B9BF9B500E9A795 /* DAFLightsOutSolutionAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAFLightsOutSolutionAnimator.h; sourceTree = "<group>"; };
 		B3525F441B9C5DD000E9A795 /* LightsOutNoButton.form */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = LightsOutNoButton.form; sourceTree = "<group>"; };
 		B3525F461B9C61F400E9A795 /* LightsOutNoButtonInverse.form */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = LightsOutNoButtonInverse.form; sourceTree = "<group>"; };
-		B3540F7B1B9146930076176E /* LightsOutViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightsOutViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3540F7B1B9146930076176E /* LightsOutFormViewer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightsOutFormViewer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3540F7E1B9146930076176E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B3540F7F1B9146930076176E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B3540F811B9146930076176E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B3540F821B9146930076176E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B3540F841B9146930076176E /* ConnectViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectViewController.h; sourceTree = "<group>"; };
 		B3540F851B9146930076176E /* ConnectViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ConnectViewController.m; sourceTree = "<group>"; };
-		B3540F871B9146930076176E /* LightsOutViewer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutViewer-Prefix.pch"; sourceTree = "<group>"; };
+		B3540F871B9146930076176E /* LightsOutFormViewer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightsOutFormViewer-Prefix.pch"; sourceTree = "<group>"; };
 		B3540F891B9146930076176E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B3540F8B1B9146930076176E /* Connect@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Connect@2x.png"; sourceTree = "<group>"; };
 		B3540F8E1B9146930076176E /* Performer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Performer.framework; path = ../Frameworks/Performer.framework; sourceTree = "<group>"; };
@@ -275,10 +275,10 @@
 			children = (
 				B3AAF8661B94237F007F5F2E /* Forms */,
 				B3540FC51B9146EF0076176E /* Frameworks */,
-				B36E20CA1BAD20500056351B /* LightsOutShared */,
-				B3540F7C1B9146930076176E /* LightsOutViewer */,
+				B3540F7C1B9146930076176E /* LightsOutFormViewer */,
 				B3540FAA1B9146EB0076176E /* LightsOutRecognizerFormPlugin */,
 				B3540FC01B9146EE0076176E /* LightsOutRecognizerPerformPlugin */,
+				B36E20CA1BAD20500056351B /* LightsOutShared */,
 				B35410001B91470A0076176E /* LightsOutSolverFormPlugin */,
 				B35410111B91470A0076176E /* LightsOutSolverPerformPlugin */,
 				B3540F511B91468F0076176E /* Products */,
@@ -288,7 +288,7 @@
 		B3540F511B91468F0076176E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B3540F7B1B9146930076176E /* LightsOutViewer.app */,
+				B3540F7B1B9146930076176E /* LightsOutFormViewer.app */,
 				B3540FA91B9146EB0076176E /* LightsOutRecognizerFormPlugin.formplugin */,
 				B3540FBF1B9146EE0076176E /* LightsOutRecognizerPerformPlugin.framework */,
 				B3540FFF1B91470A0076176E /* LightsOutSolverFormPlugin.formplugin */,
@@ -298,7 +298,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B3540F7C1B9146930076176E /* LightsOutViewer */ = {
+		B3540F7C1B9146930076176E /* LightsOutFormViewer */ = {
 			isa = PBXGroup;
 			children = (
 				B3540F811B9146930076176E /* AppDelegate.h */,
@@ -311,7 +311,7 @@
 				B3540F8D1B9146930076176E /* Frameworks */,
 				B3540F7D1B9146930076176E /* Supporting Files */,
 			);
-			path = LightsOutViewer;
+			path = LightsOutFormViewer;
 			sourceTree = "<group>";
 		};
 		B3540F7D1B9146930076176E /* Supporting Files */ = {
@@ -319,7 +319,7 @@
 			children = (
 				B3540F7E1B9146930076176E /* Info.plist */,
 				B3540F7F1B9146930076176E /* main.m */,
-				B3540F871B9146930076176E /* LightsOutViewer-Prefix.pch */,
+				B3540F871B9146930076176E /* LightsOutFormViewer-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -497,9 +497,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		B3540F7A1B9146930076176E /* LightsOutViewer */ = {
+		B3540F7A1B9146930076176E /* LightsOutFormViewer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B3540FA01B9146930076176E /* Build configuration list for PBXNativeTarget "LightsOutViewer" */;
+			buildConfigurationList = B3540FA01B9146930076176E /* Build configuration list for PBXNativeTarget "LightsOutFormViewer" */;
 			buildPhases = (
 				B3540F761B9146930076176E /* Sources */,
 				B3540F771B9146930076176E /* Frameworks */,
@@ -512,9 +512,9 @@
 				B35410C91B916FD90076176E /* PBXTargetDependency */,
 				B35410CB1B916FD90076176E /* PBXTargetDependency */,
 			);
-			name = LightsOutViewer;
+			name = LightsOutFormViewer;
 			productName = LightsOutViewer;
-			productReference = B3540F7B1B9146930076176E /* LightsOutViewer.app */;
+			productReference = B3540F7B1B9146930076176E /* LightsOutFormViewer.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B3540FA81B9146EB0076176E /* LightsOutRecognizerFormPlugin */ = {
@@ -652,12 +652,12 @@
 			projectRoot = "";
 			targets = (
 				B3540F4B1B91468F0076176E /* LightsOut */,
+				B3540F7A1B9146930076176E /* LightsOutFormViewer */,
 				B3540FA81B9146EB0076176E /* LightsOutRecognizerFormPlugin */,
-				B3540FFE1B91470A0076176E /* LightsOutSolverFormPlugin */,
 				B3540FBE1B9146EE0076176E /* LightsOutRecognizerPerformPlugin */,
-				B354100F1B91470A0076176E /* LightsOutSolverPerformPlugin */,
 				B36E20C81BAD204F0056351B /* LightsOutShared */,
-				B3540F7A1B9146930076176E /* LightsOutViewer */,
+				B3540FFE1B91470A0076176E /* LightsOutSolverFormPlugin */,
+				B354100F1B91470A0076176E /* LightsOutSolverPerformPlugin */,
 			);
 		};
 /* End PBXProject section */
@@ -668,7 +668,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3540F941B9146930076176E /* LaunchScreen.xib in Resources */,
-				B3540F881B9146930076176E /* LightsOutViewer-Prefix.pch in Resources */,
+				B3540F881B9146930076176E /* LightsOutFormViewer-Prefix.pch in Resources */,
 				B3540F8A1B9146930076176E /* Images.xcassets in Resources */,
 				B3540F8C1B9146930076176E /* Connect@2x.png in Resources */,
 			);
@@ -836,6 +836,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -876,6 +877,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -918,12 +920,12 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LightsOutViewer/LightsOutViewer-Prefix.pch";
+				GCC_PREFIX_HEADER = "LightsOutFormViewer/LightsOutFormViewer-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = LightsOutViewer/Info.plist;
+				INFOPLIST_FILE = LightsOutFormViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.playingandsuffering.$(PRODUCT_NAME:rfc1034identifier)";
@@ -945,8 +947,8 @@
 					"$(PROJECT_DIR)/Frameworks",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "LightsOutViewer/LightsOutViewer-Prefix.pch";
-				INFOPLIST_FILE = LightsOutViewer/Info.plist;
+				GCC_PREFIX_HEADER = "LightsOutFormViewer/LightsOutFormViewer-Prefix.pch";
+				INFOPLIST_FILE = LightsOutFormViewer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.playingandsuffering.$(PRODUCT_NAME:rfc1034identifier)";
@@ -1247,7 +1249,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B3540FA01B9146930076176E /* Build configuration list for PBXNativeTarget "LightsOutViewer" */ = {
+		B3540FA01B9146930076176E /* Build configuration list for PBXNativeTarget "LightsOutFormViewer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B3540FA11B9146930076176E /* Debug */,
