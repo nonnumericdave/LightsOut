@@ -19,7 +19,7 @@
  @brief An NSArray containing N * N NSNumber instances of BOOL, representing the initial state of a game board of dimension N.
  @details When solving the game board, settings this property will cause the in-progress solution to be canceled.
  */
-@property (atomic, readwrite, copy) NSArray* initialBoardState;
+@property (atomic, readwrite, copy, nonnull) NSArray<NSNumber*>* initialBoardState;
 
 /*!
  @property isSolving
