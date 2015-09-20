@@ -84,6 +84,9 @@
 		B36E20F01BAD357E0056351B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B36E20EF1BAD357E0056351B /* Assets.xcassets */; };
 		B36E20F31BAD357E0056351B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B36E20F11BAD357E0056351B /* LaunchScreen.storyboard */; };
 		B36E20FB1BAD37FB0056351B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B36E20FA1BAD37FB0056351B /* UIKit.framework */; };
+		B37397A71BAE4A41006E1F1A /* libLightsOutShared.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B36E20C91BAD204F0056351B /* libLightsOutShared.a */; };
+		B37397A81BAE4A63006E1F1A /* libLightsOutShared.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B36E20C91BAD204F0056351B /* libLightsOutShared.a */; };
+		B37397A91BAE4A6D006E1F1A /* libLightsOutShared.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B36E20C91BAD204F0056351B /* libLightsOutShared.a */; };
 		B3869FC41BAD3AC80055E8A0 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B35410C61B916B0B0076176E /* opencv2.framework */; };
 		B3869FC61BAD41850055E8A0 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FC51BAD41850055E8A0 /* AVFoundation.framework */; };
 		B3869FC81BAD41A80055E8A0 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3869FC71BAD41A80055E8A0 /* CoreMedia.framework */; };
@@ -117,6 +120,13 @@
 			remoteInfo = LightsOutShared;
 		};
 		B36E20D41BAD20B40056351B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B3540F461B91468F0076176E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B36E20C81BAD204F0056351B;
+			remoteInfo = LightsOutShared;
+		};
+		B37397AA1BAE4A7D006E1F1A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B3540F461B91468F0076176E /* Project object */;
 			proxyType = 1;
@@ -273,6 +283,7 @@
 				B3214C7A1B9174490075EF9E /* opencv2.framework in Frameworks */,
 				B35410B21B914B970076176E /* Performer.framework in Frameworks */,
 				B35410B31B914B970076176E /* RelativeInterface.framework in Frameworks */,
+				B37397A81BAE4A63006E1F1A /* libLightsOutShared.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +302,7 @@
 			files = (
 				B35410B61B914BAF0076176E /* Performer.framework in Frameworks */,
 				B35410B71B914BAF0076176E /* RelativeInterface.framework in Frameworks */,
+				B37397A91BAE4A6D006E1F1A /* libLightsOutShared.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +326,7 @@
 				B3869FD01BAD41F70055E8A0 /* QuartzCore.framework in Frameworks */,
 				B36E20FB1BAD37FB0056351B /* UIKit.framework in Frameworks */,
 				B3869FC41BAD3AC80055E8A0 /* opencv2.framework in Frameworks */,
+				B37397A71BAE4A41006E1F1A /* libLightsOutShared.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -703,6 +716,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				B37397AB1BAE4A7D006E1F1A /* PBXTargetDependency */,
 			);
 			name = LightsOutViewer;
 			productName = LightsOutViewer;
@@ -931,6 +945,11 @@
 			isa = PBXTargetDependency;
 			target = B36E20C81BAD204F0056351B /* LightsOutShared */;
 			targetProxy = B36E20D41BAD20B40056351B /* PBXContainerItemProxy */;
+		};
+		B37397AB1BAE4A7D006E1F1A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B36E20C81BAD204F0056351B /* LightsOutShared */;
+			targetProxy = B37397AA1BAE4A7D006E1F1A /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
