@@ -23,7 +23,7 @@
 class LightsOutSolutionAnimatorSink : public DAF::ILightsOutSolutionAnimatorSink
 {
 public:
-    // LightsOutSolverPatchAnimatorSink
+    // LightsOutSolutionAnimatorSink
     LightsOutSolutionAnimatorSink(DAFLightsOutSolverPatch* pLightsOutSolverPatch);
     
     void ClearStateOfElements();
@@ -74,10 +74,10 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     
     NSArray* pBoardStateTogglePulseArray = _pLightsOutSolverPatch.boardStateTogglePulse.value;
     
-    for (const std::size_t kvuElementIndex : kvuToggleElementIndices)
+    for (const std::size_t kuElementIndex : kvuToggleElementIndices)
     {
         PMRPrimitive* pElementTogglePulsePrimitive =
-            pBoardStateTogglePulseArray[kvuElementIndex];
+            pBoardStateTogglePulseArray[kuElementIndex];
         
         [pElementTogglePulsePrimitive setBooleanValue:YES];
     }
