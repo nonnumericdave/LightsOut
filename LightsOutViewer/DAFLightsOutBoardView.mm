@@ -227,7 +227,9 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     if ( kuBoardElementCount == kuUpdatedBoardElementCount )
     {
         _mutex.unlock();
+        
         [self loadInitialBoardGridState];
+        
         return;
     }
     
@@ -259,7 +261,9 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     }
     
     _mutex.unlock();
+    
     [self loadInitialBoardGridState];
+    
     [self setNeedsLayout];
 }
 
@@ -335,12 +339,15 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     _pLightsOutSolutionAnimator->StartAnimation();
     
     uniqueLock.unlock();
+    
     [self willChangeValueForKey:@"isSolving"];
+    
     uniqueLock.lock();
     
     _boolIsSolving = YES;
     
     uniqueLock.unlock();
+    
     [self didChangeValueForKey:@"isSolving"];
 }
 
@@ -361,12 +368,15 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     _pDisplayLink = nil;
     
     _mutex.unlock();
+    
     [self willChangeValueForKey:@"isSolving"];
+    
     _mutex.lock();
     
     _boolIsSolving = NO;
     
     _mutex.unlock();
+    
     [self didChangeValueForKey:@"isSolving"];
 }
 
