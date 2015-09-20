@@ -8,7 +8,7 @@
 
 #if defined(__cplusplus)
 #	include <opencv2/opencv.hpp>
-#   include <DAFLightsOutRecognizer.h>
+#   include "DAFLightsOutRecognizer.h"
 #endif
 
 #if defined(__OBJC__)
