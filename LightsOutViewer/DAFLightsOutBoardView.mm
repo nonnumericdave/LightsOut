@@ -11,26 +11,84 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const CGFloat g_krLayerSpacing = 20.0;
 const CGFloat g_krLayerCornerRadiusPercentageOfSize = 0.25;
+const double g_krToggleSelectionFrameDeltaSeconds = 1;
+const double g_krToggleDominoFrameDeltaSeconds = 0.5;
+const double g_krAnimationDoneSleepSeconds = 5;
+NSString* const g_pLayerAnimationKeyString = @"DAFLightsOutBoardViewLayerAnimationKey";
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface DAFLightsOutBoardView ()
 
-// UIView
-- (void)layoutSubviews;
-
 // DAFLightsOutBoardView
 - (nonnull NSArray<NSNumber*>*)initialBoardState;
 - (void)setInitialBoardState:(nonnull NSArray<NSNumber*>*)pInitialBoardStateArray;
-- (void)loadInitialBoardGrid;
+- (BOOL)isSolving;
+- (void)loadInitialBoardGrid:(nonnull NSArray<NSNumber*>*)pInitialBoardStateArray;
 - (void)loadInitialBoardGridState;
+- (void)processSolveFromInitialBoardState;
+- (void)startAnimation;
+- (void)stopAnimation;
+- (void)updateForDisplayLink:(CADisplayLink*)pDisplayLink;
+- (void)toggleStateForElementAtIndex:(NSUInteger)uElementIndex;
 
 @end
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class LightsOutSolutionAnimatorSink : public DAF::ILightsOutSolutionAnimatorSink
+{
+public:
+    // LightsOutSolutionAnimatorSink
+    LightsOutSolutionAnimatorSink(DAFLightsOutBoardView* pLightsOutBoardView);
+    
+private:
+    // ILightsOutSolutionAnimatorSink
+    virtual void AnimationHasStarted() override;
+    virtual void AnimationHasEnded() override;
+    virtual void ToggleStateOfElements(const std::vector<std::size_t>& kvuToggleElementIndices) override;
+    
+    DAFLightsOutBoardView* _pLightsOutBoardView;
+};
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+LightsOutSolutionAnimatorSink::LightsOutSolutionAnimatorSink(DAFLightsOutBoardView* pLightsOutBoardView) :
+    _pLightsOutBoardView(pLightsOutBoardView)
+{
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void
+LightsOutSolutionAnimatorSink::AnimationHasStarted()
+{
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void
+LightsOutSolutionAnimatorSink::AnimationHasEnded()
+{
+    [_pLightsOutBoardView stopAnimation];
+    [_pLightsOutBoardView loadInitialBoardGridState];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void
+LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size_t>& kvuToggleElementIndices)
+{
+    for (const std::size_t kuElementIndex : kvuToggleElementIndices)
+        [_pLightsOutBoardView toggleStateForElementAtIndex:kuElementIndex];
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @implementation DAFLightsOutBoardView
 {
     NSArray<NSNumber*>* _pInitialBoardStateArray;
+    BOOL _boolIsSolving;
+    
     std::vector<CALayer*> _vBoardElementLayers;
+
+    CADisplayLink* _pDisplayLink;
+    LightsOutSolutionAnimatorSink* _pLightsOutSolutionAnimatorSink;
+    DAF::LightsOutSolutionAnimator* _pLightsOutSolutionAnimator;
+    
     std::mutex _mutex;
 }
 
@@ -38,25 +96,51 @@ const CGFloat g_krLayerCornerRadiusPercentageOfSize = 0.25;
 @dynamic isSolving;
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)dealloc
+{
+    [self stopAnimation];
+    
+    delete _pLightsOutSolutionAnimatorSink;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (instancetype)initWithFrame:(CGRect)rectFrame
+{
+    self = [super initWithFrame:rectFrame];
+    
+    if ( self != nil )
+    {
+        _pInitialBoardStateArray = [NSArray array];
+        _boolIsSolving = NO;
+
+        _pLightsOutSolutionAnimatorSink = new LightsOutSolutionAnimatorSink(self);
+    }
+    
+    return self;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
+    std::unique_lock<std::mutex> uniqueLock(_mutex);
+    
     const NSUInteger kuBoardDimension =
-        static_cast<NSUInteger>(std::sqrt([_pInitialBoardStateArray count]));
+    static_cast<NSUInteger>(std::sqrt([_pInitialBoardStateArray count]));
     
     const CGSize ksizeBounds = self.bounds.size;
     const CGFloat krBoundsSize = std::min(ksizeBounds.width, ksizeBounds.height);
     const CGFloat krLayerSize =
-        std::floor((krBoundsSize - (kuBoardDimension + 1) * ::g_krLayerSpacing) /
-                    kuBoardDimension);
+    std::floor((krBoundsSize - (kuBoardDimension + 1) * ::g_krLayerSpacing) /
+               kuBoardDimension);
     
     const CGFloat krLayerCornerRadius =
     std::floor(krLayerSize * ::g_krLayerCornerRadiusPercentageOfSize);
     
     CGRect rectLayerFrame =
-        ::CGRectMake(::g_krLayerSpacing, ::g_krLayerSpacing, krLayerSize, krLayerSize);
-
+    ::CGRectMake(::g_krLayerSpacing, ::g_krLayerSpacing, krLayerSize, krLayerSize);
+    
     for (std::size_t uRow = 0; uRow < kuBoardDimension; ++uRow)
     {
         for (std::size_t uColumn = 0; uColumn < kuBoardDimension; ++uColumn)
@@ -75,12 +159,17 @@ const CGFloat g_krLayerCornerRadiusPercentageOfSize = 0.25;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)solveFromInitialBoardState
+{
+    [self performSelectorOnMainThread:@selector(processSolveFromInitialBoardState)
+                           withObject:nil
+                        waitUntilDone:NO];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (nonnull NSArray<NSNumber*>*)initialBoardState
 {
     _mutex.lock();
-    
-    if ( _pInitialBoardStateArray == nil )
-        _pInitialBoardStateArray = [NSArray array];
     
     NSArray<NSNumber*>* pInitialBoardStateArray = _pInitialBoardStateArray;
     
@@ -107,21 +196,27 @@ const CGFloat g_krLayerCornerRadiusPercentageOfSize = 0.25;
         [NSException raise:@"BoardStateNotSquareException"
                     format:@"Expecting an NSArray of size N * N, for N-dimension board"];
         
-    _pInitialBoardStateArray = [pInitialBoardStateArray copy];
-    
     uniqueLock.unlock();
     
-   [self performSelectorOnMainThread:@selector(loadInitialBoardGrid)
-                          withObject:nil
+    [self performSelectorOnMainThread:@selector(loadInitialBoardGrid:)
+                          withObject:[pInitialBoardStateArray copy]
                        waitUntilDone:NO];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- (void)loadInitialBoardGrid
+- (BOOL)isSolving
+{
+    return _boolIsSolving;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)loadInitialBoardGrid:(nonnull NSArray<NSNumber*>*)pInitialBoardStateArray
 {
     // Called on main thread.
     
     std::unique_lock<std::mutex> uniqueLock(_mutex);
+    
+    _pInitialBoardStateArray = [pInitialBoardStateArray copy];
     
     const std::size_t kuBoardElementCount =
         _vBoardElementLayers.size();
@@ -179,11 +274,156 @@ const CGFloat g_krLayerCornerRadiusPercentageOfSize = 0.25;
     [_pInitialBoardStateArray enumerateObjectsUsingBlock:
         ^(NSNumber* _Nonnull pElementStateNumber, NSUInteger uElementIndex, BOOL* _Nonnull pboolStopEnumerating)
         {
-            _vBoardElementLayers[uElementIndex].opacity =
+            CALayer* pLayer = _vBoardElementLayers[uElementIndex];
+            
+            [pLayer removeAnimationForKey:(::g_pLayerAnimationKeyString)];
+            
+            pLayer.opacity =
                 [pElementStateNumber boolValue] ?
                     1.0 :
                     0.0;
         }];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)processSolveFromInitialBoardState
+{
+    // Called on main thread.
+    
+    std::unique_lock<std::mutex> uniqueLock(_mutex);
+
+    [self stopAnimation];
+    [self loadInitialBoardGridState];
+    [self startAnimation];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)startAnimation
+{
+    // Called on main thread with mutex locked.
+    
+    const std::size_t kuBoardElementCount = [_pInitialBoardStateArray count];
+    const std::size_t kuBoardDimension = static_cast<std::size_t>(std::sqrt(kuBoardElementCount));
+    
+    std::vector<bool> vbStateMatrix;
+    vbStateMatrix.reserve(kuBoardElementCount);
+    for (NSNumber* pElementStateNumber in _pInitialBoardStateArray)
+        vbStateMatrix.push_back([pElementStateNumber boolValue]);
+    
+    DAF::LightsOutSolver lightsOutSolver(kuBoardDimension);
+    std::vector<bool> vbOptimalSolutionMatrix;
+    if ( ! lightsOutSolver.Solve(vbStateMatrix, vbOptimalSolutionMatrix) )
+        return;
+    
+    assert( _pLightsOutSolutionAnimator == nullptr );
+    
+    _pLightsOutSolutionAnimator =
+        new DAF::LightsOutSolutionAnimator(_pLightsOutSolutionAnimatorSink,
+                                           ::g_krToggleSelectionFrameDeltaSeconds,
+                                           ::g_krToggleDominoFrameDeltaSeconds,
+                                           ::g_krAnimationDoneSleepSeconds,
+                                           vbOptimalSolutionMatrix);
+    
+    assert( _pDisplayLink == nil );
+    
+    _pDisplayLink =
+        [CADisplayLink displayLinkWithTarget:self selector:@selector(updateForDisplayLink:)];
+    
+    [_pDisplayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+    
+    _pLightsOutSolutionAnimator->StartAnimation();
+    
+    [self willChangeValueForKey:@"isSolving"];
+    _boolIsSolving = YES;
+    [self didChangeValueForKey:@"isSolving"];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)stopAnimation
+{
+    // Called on main thread with mutex locked.
+    
+    if ( _pLightsOutSolutionAnimator != nullptr )
+    {
+        _pLightsOutSolutionAnimator->StopAnimation();
+        delete _pLightsOutSolutionAnimator;
+        _pLightsOutSolutionAnimator = nullptr;
+    }
+    
+    [_pDisplayLink invalidate];
+
+    _pDisplayLink = nil;
+    
+    [self willChangeValueForKey:@"isSolving"];
+    _boolIsSolving = NO;
+    [self didChangeValueForKey:@"isSolving"];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)updateForDisplayLink:(CADisplayLink*)pDisplayLink
+{
+    assert( pDisplayLink == _pDisplayLink );
+    
+    assert( _pLightsOutSolutionAnimator != nullptr );
+    
+    _pLightsOutSolutionAnimator->UpdateFrameDelta(pDisplayLink.duration);
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)toggleStateForElementAtIndex:(NSUInteger)uElementIndex
+{
+    // Called on main thread.
+    
+    assert( uElementIndex < _vBoardElementLayers.size() );
+    
+    CALayer* pLayer = _vBoardElementLayers[uElementIndex];
+    
+    CAAnimation* pPreviousAnimation =
+        [pLayer animationForKey:(::g_pLayerAnimationKeyString)];
+    
+    CGFloat rOpacityFromValue;
+    CGFloat rOpacityToValue;
+    if ( pPreviousAnimation != nil )
+    {
+        CALayer* pPresentationLayer = pLayer.presentationLayer;
+        rOpacityFromValue = pPresentationLayer.opacity;
+        
+        assert( [pPreviousAnimation isKindOfClass:[CABasicAnimation class]] );
+        
+        CABasicAnimation* pPreviousBasicAnimation =
+            static_cast<CABasicAnimation*>(pPreviousAnimation);
+        
+        NSNumber* pPreviousToValueNumber = pPreviousBasicAnimation.toValue;
+        rOpacityToValue =
+            ([pPreviousToValueNumber floatValue] > 0.5) ?
+                0.0 :
+                1.0;
+        
+        [pLayer removeAnimationForKey:(::g_pLayerAnimationKeyString)];
+    }
+    else
+    {
+        rOpacityFromValue = pLayer.opacity;
+        rOpacityToValue = (rOpacityFromValue > 0.5) ? 0.0 : 1.0;
+    }
+    
+    pLayer.opacity = rOpacityToValue;
+    
+    CABasicAnimation* pBasicAnimation =
+        [CABasicAnimation animationWithKeyPath:@"opacity"];
+    
+    pBasicAnimation.fromValue = [NSNumber numberWithFloat:rOpacityFromValue];
+    pBasicAnimation.toValue = [NSNumber numberWithFloat:rOpacityToValue];
+    
+    CFTimeInterval timeIntervalAnimation =
+        std::abs(rOpacityFromValue - rOpacityToValue) * ::g_krToggleSelectionFrameDeltaSeconds;
+    
+    pBasicAnimation.duration = timeIntervalAnimation;
+    
+    pBasicAnimation.timingFunction =
+        [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    
+    [pLayer addAnimation:pBasicAnimation forKey:(::g_pLayerAnimationKeyString)];
 }
 
 @end
