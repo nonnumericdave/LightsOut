@@ -78,7 +78,12 @@ const CGFloat g_krLayerCornerRadiusPercentageOfSize = 0.25;
 - (nonnull NSArray<NSNumber*>*)initialBoardState
 {
     _mutex.lock();
+    
+    if ( _pInitialBoardStateArray == nil )
+        _pInitialBoardStateArray = [NSArray array];
+    
     NSArray<NSNumber*>* pInitialBoardStateArray = _pInitialBoardStateArray;
+    
     _mutex.unlock();
     
     return pInitialBoardStateArray;
