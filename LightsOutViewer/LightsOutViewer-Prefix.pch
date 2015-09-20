@@ -9,6 +9,7 @@
 #if defined(__cplusplus)
 #   include <thread>
 #	include <opencv2/opencv.hpp>
+#   include "DAFLightsOutRecognizer.h"
 #   include "DAFLightsOutSolutionAnimator.h"
 #   include "DAFLightsOutSolver.h"
 #endif

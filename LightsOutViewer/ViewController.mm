@@ -11,10 +11,15 @@
 #include "DAFLightsOutBoardView.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
+    ::dispatch_semaphore_create(3);
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface ViewController ()
 
 // ViewController
 - (void)didTapLightsOutBoardViewWithGestureRecognizer:(UITapGestureRecognizer*)pTapGestureRecgonizer;
+- (void)setBoardStateArray:(NSArray*)pBoardStateArray;
 
 @end
 
@@ -28,6 +33,50 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (void)processImage:(cv::Mat&)matImage
 {
+    if ( _pLightsOutBoardView.isSolving )
+        return;
+    
+    bool bCanProcessImage =
+        ::dispatch_semaphore_wait(::g_dispatchSemaphoreImageProcessing, 0) == 0;
+   
+    if ( ! bCanProcessImage )
+        return;
+    
+    const cv::Mat kmatImage = matImage.clone();
+    
+    dispatch_block_t dispatchBlock =
+        ^void(void)
+        {
+            std::vector<bool> vbStateMatrix;
+            std::size_t uDimension;
+            
+            bool bDidRecognizeBoardState =
+                DAF::RecognizeLightsOutBoardStateFromImage(kmatImage,
+                                                           vbStateMatrix,
+                                                           uDimension);
+            
+            if ( bDidRecognizeBoardState )
+            {
+                const NSUInteger kuBoardElements = vbStateMatrix.size();
+                NSMutableArray* pBoardStateArray =
+                    [NSMutableArray arrayWithCapacity:kuBoardElements];
+                
+                for (bool bElementState : vbStateMatrix)
+                {
+                    NSNumber* pElementStateNumber =
+                        [NSNumber numberWithBool:bElementState];
+                    
+                    [pBoardStateArray addObject:pElementStateNumber];
+                }
+                
+                [self setBoardStateArray:pBoardStateArray];
+            }
+            
+            ::dispatch_semaphore_signal(::g_dispatchSemaphoreImageProcessing);
+        };
+    
+    ::dispatch_async(::dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0),
+                     dispatchBlock);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -98,6 +147,15 @@
     assert( pTapGestureRecgonizer.view == _pLightsOutBoardView );
     
     [_pLightsOutBoardView solveFromInitialBoardState];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)setBoardStateArray:(NSArray*)pBoardStateArray
+{
+    if ( _pLightsOutBoardView.isSolving )
+        return;
+    
+    _pLightsOutBoardView.initialBoardState = pBoardStateArray;
 }
 
 @end
