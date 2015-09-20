@@ -33,6 +33,7 @@ namespace DAF
         ~LightsOutSolutionAnimator();
         
         void StartAnimation();
+        void StopAnimation();
         bool UpdateFrameDelta(double rFrameDeltaSeconds);
         
     private:
@@ -51,6 +52,7 @@ namespace DAF
         double _rNextToggleFrameDeltaSeconds;
         std::vector<std::size_t> _kvuToggleElementIndices;
 
+        bool _bStopAnimationRequest;
         bool _bAnimationHasEnded;
         bool _bConsumerNeedsNextFrame;
         std::condition_variable _conditionVariableAnimator;

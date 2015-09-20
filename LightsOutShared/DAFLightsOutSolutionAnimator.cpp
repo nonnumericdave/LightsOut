@@ -20,6 +20,7 @@ DAF::LightsOutSolutionAnimator::LightsOutSolutionAnimator(ILightsOutSolutionAnim
     _krAnimationDoneSleepSeconds(rAnimationDoneSleepSeconds),
     _kvbOptimalSolutionMatrix(kvbOptimalSolutionMatrix),
     _rNextToggleFrameDeltaSeconds(0.0),
+    _bStopAnimationRequest(false),
     _bAnimationHasEnded(false),
     _bConsumerNeedsNextFrame(true)
 {
@@ -30,9 +31,7 @@ DAF::LightsOutSolutionAnimator::LightsOutSolutionAnimator(ILightsOutSolutionAnim
 DAF::LightsOutSolutionAnimator::~LightsOutSolutionAnimator()
 {
     if ( _threadAnimator.joinable() )
-    {
         _threadAnimator.join();
-    }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -42,32 +41,56 @@ DAF::LightsOutSolutionAnimator::StartAnimation()
     if ( _threadAnimator.joinable() )
         return;
     
+    _bStopAnimationRequest = false;
+    _bAnimationHasEnded = false;
+    _bConsumerNeedsNextFrame = true;
+    
     _kpLightsOutSolutionAnimatorSink->AnimationHasStarted();
 
     _threadAnimator = std::thread(&DAF::LightsOutSolutionAnimator::AnimationThread, this);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+void
+DAF::LightsOutSolutionAnimator::StopAnimation()
+{
+    if ( ! _threadAnimator.joinable() )
+        return;
+    
+    _mutexAnimator.lock();
+    _bStopAnimationRequest = true;
+    _mutexAnimator.unlock();
+    _conditionVariableAnimator.notify_all();
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 bool
 DAF::LightsOutSolutionAnimator::UpdateFrameDelta(double rFrameDeltaSeconds)
 {
-    std::unique_lock<std::mutex> lock(_mutexAnimator);
+    _mutexAnimator.lock();
     
     if ( _bAnimationHasEnded )
     {
+        _mutexAnimator.unlock();
         _kpLightsOutSolutionAnimatorSink->AnimationHasEnded();
         return false;
     }
     
     _rNextToggleFrameDeltaSeconds -= rFrameDeltaSeconds;
     if ( _bConsumerNeedsNextFrame || _rNextToggleFrameDeltaSeconds > 0.0 )
+    {
+        _mutexAnimator.unlock();
         return false;
-    
+    }
+
+    _mutexAnimator.unlock();
     _kpLightsOutSolutionAnimatorSink->ToggleStateOfElements(_kvuToggleElementIndices);
+    _mutexAnimator.lock();
+    
     _kvuToggleElementIndices.clear();
     
     _bConsumerNeedsNextFrame = true;
-    lock.unlock();
+    _mutexAnimator.unlock();
     _conditionVariableAnimator.notify_all();
     
     return true;
@@ -89,7 +112,14 @@ DAF::LightsOutSolutionAnimator::AnimationThread()
             continue;
         
         // Toggle selected element
-        _conditionVariableAnimator.wait(lock, [this]() -> bool { return _bConsumerNeedsNextFrame; });
+        _conditionVariableAnimator.wait(lock,
+                                        [this]() -> bool
+                                        {
+                                            return _bConsumerNeedsNextFrame || _bStopAnimationRequest;
+                                        });
+        
+        if ( _bStopAnimationRequest )
+            break;
         
         _kvuToggleElementIndices.clear();
         _kvuToggleElementIndices.push_back(uElementIndex);
@@ -106,7 +136,14 @@ DAF::LightsOutSolutionAnimator::AnimationThread()
         std::size_t uRightElementColumnIndex = kuElementColumnIndex;
         for (;;)
         {
-            _conditionVariableAnimator.wait(lock, [this]() -> bool { return _bConsumerNeedsNextFrame; });
+            _conditionVariableAnimator.wait(lock,
+                                            [this]() -> bool
+                                            {
+                                                return _bConsumerNeedsNextFrame || _bStopAnimationRequest;
+                                            });
+            
+            if ( _bStopAnimationRequest )
+                break;
             
             _kvuToggleElementIndices.clear();
             
@@ -163,13 +200,15 @@ DAF::LightsOutSolutionAnimator::AnimationThread()
         
         _rNextToggleFrameDeltaSeconds = _krToggleSelectionFrameDeltaSeconds;
     }
-    
-    lock.unlock();
-    
+
     const long long kllSleepMilliseconds = _krAnimationDoneSleepSeconds * 1000;
-    std::this_thread::sleep_for(std::chrono::milliseconds(kllSleepMilliseconds));
-    
-    lock.lock();
-    
+    _conditionVariableAnimator.wait_until(lock,
+                                          std::chrono::high_resolution_clock::now() +
+                                              std::chrono::milliseconds(kllSleepMilliseconds),
+                                          [this]() -> bool
+                                          {
+                                              return _bStopAnimationRequest;
+                                          });
+
     _bAnimationHasEnded = true;
 }
