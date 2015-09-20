@@ -214,7 +214,7 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
 {
     // Called on main thread.
     
-    std::unique_lock<std::mutex> uniqueLock(_mutex);
+    _mutex.lock();
     
     _pInitialBoardStateArray = [pInitialBoardStateArray copy];
     
@@ -226,6 +226,7 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     
     if ( kuBoardElementCount == kuUpdatedBoardElementCount )
     {
+        _mutex.unlock();
         [self loadInitialBoardGridState];
         return;
     }
@@ -257,17 +258,17 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
         }
     }
     
+    _mutex.unlock();
     [self loadInitialBoardGridState];
-    
-    uniqueLock.unlock();
-    
     [self setNeedsLayout];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (void)loadInitialBoardGridState
 {
-    // Called on main thread with mutex locked.
+    // Called on main thread.
+    
+    std::unique_lock<std::mutex> uniqueLock(_mutex);
     
     assert( [_pInitialBoardStateArray count] == _vBoardElementLayers.size() );
     
@@ -290,8 +291,6 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
 {
     // Called on main thread.
     
-    std::unique_lock<std::mutex> uniqueLock(_mutex);
-
     [self stopAnimation];
     [self loadInitialBoardGridState];
     [self startAnimation];
@@ -300,7 +299,9 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (void)startAnimation
 {
-    // Called on main thread with mutex locked.
+    // Called on main thread.
+
+    std::unique_lock<std::mutex> uniqueLock(_mutex);
     
     const std::size_t kuBoardElementCount = [_pInitialBoardStateArray count];
     const std::size_t kuBoardDimension = static_cast<std::size_t>(std::sqrt(kuBoardElementCount));
@@ -333,15 +334,20 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     
     _pLightsOutSolutionAnimator->StartAnimation();
     
+    uniqueLock.unlock();
     [self willChangeValueForKey:@"isSolving"];
+    uniqueLock.lock();
+    
     _boolIsSolving = YES;
+    
+    uniqueLock.unlock();
     [self didChangeValueForKey:@"isSolving"];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (void)stopAnimation
 {
-    // Called on main thread with mutex locked.
+    _mutex.lock();
     
     if ( _pLightsOutSolutionAnimator != nullptr )
     {
@@ -354,14 +360,21 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
 
     _pDisplayLink = nil;
     
+    _mutex.unlock();
     [self willChangeValueForKey:@"isSolving"];
+    _mutex.lock();
+    
     _boolIsSolving = NO;
+    
+    _mutex.unlock();
     [self didChangeValueForKey:@"isSolving"];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (void)updateForDisplayLink:(CADisplayLink*)pDisplayLink
 {
+    // Called on main thread.
+    
     assert( pDisplayLink == _pDisplayLink );
     
     assert( _pLightsOutSolutionAnimator != nullptr );
