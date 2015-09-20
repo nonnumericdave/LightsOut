@@ -11,6 +11,14 @@
 #include "DAFLightsOutBoardView.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+@interface ViewController ()
+
+// ViewController
+- (void)didTapLightsOutBoardViewWithGestureRecognizer:(UITapGestureRecognizer*)pTapGestureRecgonizer;
+
+@end
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @implementation ViewController
 {
     CvVideoCamera* _pVideoCamera;
@@ -70,12 +78,26 @@
         [pHorizontalLayoutConstraintArray arrayByAddingObjectsFromArray:@[pHeightLayoutConstraint, pCenterYLayoutConstraint]];
     
     [self.view addConstraints:pLayoutConstraintArray];
+    
+    UITapGestureRecognizer* pTapGestureRecognizer =
+        [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(didTapLightsOutBoardViewWithGestureRecognizer:)];
+    
+    [_pLightsOutBoardView addGestureRecognizer:pTapGestureRecognizer];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - (void)viewDidAppear:(BOOL)boolAnimated
 {
     [_pVideoCamera start];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)didTapLightsOutBoardViewWithGestureRecognizer:(UITapGestureRecognizer*)pTapGestureRecgonizer
+{
+    assert( pTapGestureRecgonizer.view == _pLightsOutBoardView );
+    
+    [_pLightsOutBoardView solveFromInitialBoardState];
 }
 
 @end
