@@ -46,6 +46,8 @@ static std::mutex g_mutex;
     cv::Mat matImageProcessed(ksize, CV_8UC4);
     cv::cvtColor(matImage, matImageProcessed, CV_BGR2RGBA);
     
+    assert( matImageProcessed.isContinuous() );
+    
     RIImage* pImage =
         [[RIImage alloc] initWithData:matImageProcessed.ptr()
                                 width:ksize.width
