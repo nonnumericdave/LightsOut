@@ -215,6 +215,7 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
                                            1,
                                            0.25,
                                            5,
+                                           false,
                                            kvbOptimalSolutionMatrix);
     
     _pLightsOutSolutionAnimator->StartAnimation();

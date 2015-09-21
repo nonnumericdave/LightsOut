@@ -29,6 +29,7 @@ namespace DAF
                                   double rToggleSelectionFrameDeltaSeconds,
                                   double rToggleDominoFrameDeltaSeconds,
                                   double rAnimationDoneSleepSeconds,
+                                  bool bAnimateAutoReverse,
                                   const std::vector<bool>& kvbOptimalSolutionMatrix);
         ~LightsOutSolutionAnimator();
         
@@ -44,6 +45,7 @@ namespace DAF
         const double _krToggleSelectionFrameDeltaSeconds;
         const double _krToggleDominoFrameDeltaSeconds;
         const double _krAnimationDoneSleepSeconds;
+        const bool _kbAnimateAutoReverse;
         const std::vector<bool> _kvbOptimalSolutionMatrix;
         
         std::thread _threadAnimator;

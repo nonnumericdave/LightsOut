@@ -388,7 +388,9 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     
     DAF::LightsOutSolver lightsOutSolver(kuBoardDimension);
     std::vector<bool> vbOptimalSolutionMatrix;
-    if ( ! lightsOutSolver.Solve(vbStateMatrix, vbOptimalSolutionMatrix) )
+    bool bHasSolution = lightsOutSolver.Solve(vbStateMatrix, vbOptimalSolutionMatrix);
+
+    if ( ! bHasSolution )
     {
         vbOptimalSolutionMatrix.reserve(kuBoardElementCount);
         
@@ -407,6 +409,7 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
                                            ::g_krToggleSelectionFrameDeltaSeconds,
                                            ::g_krToggleDominoFrameDeltaSeconds,
                                            ::g_krAnimationDoneSleepSeconds,
+                                           ! bHasSolution,
                                            vbOptimalSolutionMatrix);
     
     assert( _pDisplayLink == nil );

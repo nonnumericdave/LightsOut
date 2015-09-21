@@ -13,11 +13,13 @@ DAF::LightsOutSolutionAnimator::LightsOutSolutionAnimator(ILightsOutSolutionAnim
                                                           double rToggleSelectionFrameDeltaSeconds,
                                                           double rToggleDominoFrameDeltaSeconds,
                                                           double rAnimationDoneSleepSeconds,
+                                                          bool bAnimateAutoReverse,
                                                           const std::vector<bool>& kvbOptimalSolutionMatrix) :
     _kpLightsOutSolutionAnimatorSink(pLightsOutSolutionAnimatorSink),
     _krToggleSelectionFrameDeltaSeconds(rToggleSelectionFrameDeltaSeconds),
     _krToggleDominoFrameDeltaSeconds(rToggleDominoFrameDeltaSeconds),
     _krAnimationDoneSleepSeconds(rAnimationDoneSleepSeconds),
+    _kbAnimateAutoReverse(bAnimateAutoReverse),
     _kvbOptimalSolutionMatrix(kvbOptimalSolutionMatrix),
     _rNextToggleFrameDeltaSeconds(0.0),
     _bStopAnimationRequest(false),
@@ -105,10 +107,20 @@ DAF::LightsOutSolutionAnimator::AnimationThread()
     const std::size_t kuBoardElements = _kvbOptimalSolutionMatrix.size();
     const double krBoardDimension = std::sqrt(kuBoardElements);
     const std::size_t kuBoardDimension = static_cast<std::size_t>(krBoardDimension);
+
+    const std::size_t kuMaxBoardElementToggle =
+        _kbAnimateAutoReverse ?
+            2 * kuBoardElements:
+            kuBoardElements;
     
-    for (std::size_t uElementIndex = 0; uElementIndex < kuBoardElements; ++uElementIndex)
+    for (std::size_t uToggleIndex = 0; uToggleIndex < kuMaxBoardElementToggle; ++uToggleIndex)
     {
-        if ( ! _kvbOptimalSolutionMatrix[uElementIndex] )
+        const std::size_t kuElementIndex =
+            (uToggleIndex >= kuBoardElements) ?
+                kuBoardElements - (uToggleIndex % kuBoardElements) - 1:
+                uToggleIndex;
+        
+        if ( ! _kvbOptimalSolutionMatrix[kuElementIndex] )
             continue;
         
         // Toggle selected element
@@ -122,13 +134,13 @@ DAF::LightsOutSolutionAnimator::AnimationThread()
             break;
         
         _kvuToggleElementIndices.clear();
-        _kvuToggleElementIndices.push_back(uElementIndex);
+        _kvuToggleElementIndices.push_back(kuElementIndex);
         _rNextToggleFrameDeltaSeconds = _krToggleDominoFrameDeltaSeconds;
         _bConsumerNeedsNextFrame = false;
 
         // Toggle additional elements in row and column
-        const std::size_t kuElementRowIndex = uElementIndex / kuBoardDimension;
-        const std::size_t kuElementColumnIndex = uElementIndex % kuBoardDimension;
+        const std::size_t kuElementRowIndex = kuElementIndex / kuBoardDimension;
+        const std::size_t kuElementColumnIndex = kuElementIndex % kuBoardDimension;
         
         std::size_t uTopElementRowIndex = kuElementRowIndex;
         std::size_t uBottomElementRowIndex = kuElementRowIndex;
