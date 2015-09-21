@@ -11,6 +11,8 @@
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const CGFloat g_krLayerSpacing = 20.0;
 const CGFloat g_krLayerCornerRadiusPercentageOfSize = 0.25;
+const CGFloat g_krLayerMaxAlpha = 0.75;
+const CGFloat g_krMessageAlpha = 0.5;
 const double g_krToggleSelectionFrameDeltaSeconds = 1;
 const double g_krToggleDominoFrameDeltaSeconds = 0.5;
 const double g_krAnimationDoneSleepSeconds = 5;
@@ -65,6 +67,8 @@ LightsOutSolutionAnimatorSink::AnimationHasStarted()
 void
 LightsOutSolutionAnimatorSink::AnimationHasEnded()
 {
+    // Called from main thread.
+    
     [_pLightsOutBoardView stopAnimation];
     [_pLightsOutBoardView loadInitialBoardGridState];
 }
@@ -73,6 +77,8 @@ LightsOutSolutionAnimatorSink::AnimationHasEnded()
 void
 LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size_t>& kvuToggleElementIndices)
 {
+    // Called from main thread.
+    
     for (const std::size_t kuElementIndex : kvuToggleElementIndices)
         [_pLightsOutBoardView toggleStateForElementAtIndex:kuElementIndex];
 }
@@ -88,6 +94,8 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     CADisplayLink* _pDisplayLink;
     LightsOutSolutionAnimatorSink* _pLightsOutSolutionAnimatorSink;
     DAF::LightsOutSolutionAnimator* _pLightsOutSolutionAnimator;
+    
+    UIView* _pMessageView;
     
     std::mutex _mutex;
 }
@@ -114,6 +122,65 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
         _boolIsSolving = NO;
 
         _pLightsOutSolutionAnimatorSink = new LightsOutSolutionAnimatorSink(self);
+        
+        _pMessageView = [[UIView alloc] init];
+        _pMessageView.backgroundColor = [UIColor blackColor];
+        _pMessageView.clipsToBounds = YES;
+        _pMessageView.layer.cornerRadius = 10.0;
+        _pMessageView.opaque = NO;
+        _pMessageView.alpha = ::g_krMessageAlpha;
+        _pMessageView.hidden = YES;
+        
+        UILabel* pMessageLabel = [[UILabel alloc] init];
+        pMessageLabel.textColor = [UIColor whiteColor];
+        pMessageLabel.numberOfLines = 1;
+        pMessageLabel.font = [UIFont systemFontOfSize:20];
+        pMessageLabel.text = @"No Solution Exists";
+        
+        [_pMessageView addSubview:pMessageLabel];
+        
+        pMessageLabel.translatesAutoresizingMaskIntoConstraints = NO;
+
+        NSArray* pLabelHorizontalLayoutConstraintArray =
+            [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-10-[pMessageLabel]-10-|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:NSDictionaryOfVariableBindings(pMessageLabel)];
+
+        NSArray* pLabelVerticalLayoutConstraintArray =
+            [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-5-[pMessageLabel]-5-|"
+                                                    options:0
+                                                    metrics:nil
+                                                      views:NSDictionaryOfVariableBindings(pMessageLabel)];
+
+        NSArray* pLabelLayoutConstraintArray =
+            [pLabelHorizontalLayoutConstraintArray arrayByAddingObjectsFromArray:pLabelVerticalLayoutConstraintArray];
+        
+        [_pMessageView addConstraints:pLabelLayoutConstraintArray];
+        
+        [self addSubview:_pMessageView];
+        
+        _pMessageView.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        NSLayoutConstraint* pCenterXLayoutConstraint =
+            [NSLayoutConstraint constraintWithItem:_pMessageView
+                                         attribute:NSLayoutAttributeCenterX
+                                         relatedBy:NSLayoutRelationEqual
+                                            toItem:self
+                                         attribute:NSLayoutAttributeCenterX
+                                        multiplier:1.0
+                                          constant:0];
+        
+        NSLayoutConstraint* pCenterYLayoutConstraint =
+            [NSLayoutConstraint constraintWithItem:_pMessageView
+                                         attribute:NSLayoutAttributeCenterY
+                                         relatedBy:NSLayoutRelationEqual
+                                            toItem:self
+                                         attribute:NSLayoutAttributeCenterY
+                                        multiplier:1.0
+                                          constant:0];
+
+        [self addConstraints:@[pCenterXLayoutConstraint, pCenterYLayoutConstraint]];
     }
     
     return self;
@@ -156,6 +223,8 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
         rectLayerFrame.origin.x = ::g_krLayerSpacing;
         rectLayerFrame.origin.y += krLayerSize + ::g_krLayerSpacing;
     }
+    
+    [self bringSubviewToFront:_pMessageView];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -215,6 +284,8 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     // Called on main thread.
     
     _mutex.lock();
+    
+    _pMessageView.hidden = YES;
     
     _pInitialBoardStateArray = [pInitialBoardStateArray copy];
     
@@ -285,7 +356,7 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
             
             pLayer.opacity =
                 [pElementStateNumber boolValue] ?
-                    1.0 :
+                    ::g_krLayerMaxAlpha :
                     0.0;
         }];
 }
@@ -318,7 +389,16 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     DAF::LightsOutSolver lightsOutSolver(kuBoardDimension);
     std::vector<bool> vbOptimalSolutionMatrix;
     if ( ! lightsOutSolver.Solve(vbStateMatrix, vbOptimalSolutionMatrix) )
-        return;
+    {
+        vbOptimalSolutionMatrix.reserve(kuBoardElementCount);
+        
+        for (std::size_t uElementIndex = 0;
+             uElementIndex < kuBoardElementCount;
+             ++uElementIndex)
+            vbOptimalSolutionMatrix.push_back(true);
+            
+        _pMessageView.hidden = NO;
+    }
     
     assert( _pLightsOutSolutionAnimator == nullptr );
     
@@ -418,16 +498,19 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
         
         NSNumber* pPreviousToValueNumber = pPreviousBasicAnimation.toValue;
         rOpacityToValue =
-            ([pPreviousToValueNumber floatValue] > 0.5) ?
+            ([pPreviousToValueNumber floatValue] == ::g_krLayerMaxAlpha) ?
                 0.0 :
-                1.0;
+                ::g_krLayerMaxAlpha;
         
         [pLayer removeAnimationForKey:(::g_pLayerAnimationKeyString)];
     }
     else
     {
         rOpacityFromValue = pLayer.opacity;
-        rOpacityToValue = (rOpacityFromValue > 0.5) ? 0.0 : 1.0;
+        rOpacityToValue =
+            (rOpacityFromValue == ::g_krLayerMaxAlpha) ?
+                0.0 :
+                ::g_krLayerMaxAlpha;
     }
     
     pLayer.opacity = rOpacityToValue;
@@ -439,7 +522,8 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     pBasicAnimation.toValue = [NSNumber numberWithFloat:rOpacityToValue];
     
     CFTimeInterval timeIntervalAnimation =
-        std::abs(rOpacityFromValue - rOpacityToValue) * ::g_krToggleSelectionFrameDeltaSeconds;
+        (std::abs(rOpacityFromValue - rOpacityToValue) / ::g_krLayerMaxAlpha) *
+        ::g_krToggleSelectionFrameDeltaSeconds;
     
     pBasicAnimation.duration = timeIntervalAnimation;
     
