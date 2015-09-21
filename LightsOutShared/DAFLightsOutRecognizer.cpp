@@ -10,10 +10,55 @@
 #include "DAFImplicitHeap.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class AutoLogger
+{
+public:
+    AutoLogger(const std::string kszFunctionName,
+               const DAF::LoggingFunction& kloggingFunction);
+    ~AutoLogger();
+    
+private:
+    const std::string _kszFunctionName;
+    
+    // Incredibly dangerous, but it avoids a copy and this class is private.
+    const DAF::LoggingFunction& _kloggingFunction;
+};
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AutoLogger::AutoLogger(const std::string kszFunctionName,
+                       const DAF::LoggingFunction& kloggingFunction) :
+    _kszFunctionName(kszFunctionName),
+    _kloggingFunction(kloggingFunction)
+{
+    if ( _kloggingFunction == nullptr )
+        return;
+    
+    _kloggingFunction(_kszFunctionName,
+                      "Entering Function",
+                      nullptr,
+                      4);
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+AutoLogger::~AutoLogger()
+{
+    if ( _kloggingFunction == nullptr )
+        return;
+    
+    _kloggingFunction(_kszFunctionName,
+                      "Exiting Function",
+                      nullptr,
+                      4);
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
 cv::Mat
-PreprocessImageForConvexQuadrilaterals(const cv::Mat& kmatImage)
+PreprocessImageForConvexQuadrilaterals(const cv::Mat& kmatImage,
+                                       const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
     cv::Mat matPreprocessedImage;
     
     cv::cvtColor(kmatImage, matPreprocessedImage, CV_BGR2GRAY);
@@ -24,14 +69,23 @@ PreprocessImageForConvexQuadrilaterals(const cv::Mat& kmatImage)
     
     cv::dilate(matPreprocessedImage, matPreprocessedImage, cv::Mat(), cv::Point(-1, -1));
     
+    if ( kloggingFunction != nullptr )
+        kloggingFunction(__PRETTY_FUNCTION__,
+                         "Preprocessed Image",
+                         &matPreprocessedImage,
+                         3);
+    
     return matPreprocessedImage;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
 cv::Mat
-PreprocessImageForGrid(const cv::Mat& kmatImage)
+PreprocessImageForGrid(const cv::Mat& kmatImage,
+                       const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
     cv::Mat matPreprocessedImage;
     
     cv::cvtColor(kmatImage, matPreprocessedImage, CV_BGR2GRAY);
@@ -53,6 +107,12 @@ PreprocessImageForGrid(const cv::Mat& kmatImage)
     cv::Mat matKernel = (cv::Mat_<uchar>(3,3) << 0, 1, 0, 1, 1, 1, 0, 1, 0);
     
     cv::dilate(matPreprocessedImage, matPreprocessedImage, matKernel);
+    
+    if ( kloggingFunction != nullptr )
+        kloggingFunction(__PRETTY_FUNCTION__,
+                         "Preprocessed Image",
+                         &matPreprocessedImage,
+                         3);
     
     cv::Size_<std::size_t> sizePreprocessed = matPreprocessedImage.size();
     
@@ -100,15 +160,25 @@ PreprocessImageForGrid(const cv::Mat& kmatImage)
     
     cv::erode(matPreprocessedImage, matPreprocessedImage, matKernel);
     
+    if ( kloggingFunction != nullptr )
+        kloggingFunction(__PRETTY_FUNCTION__,
+                         "Flooded Image",
+                         &matPreprocessedImage,
+                         1);
+    
     return matPreprocessedImage;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
 std::vector<std::vector<cv::Point> >
-IdentifyConvexQuadrilateralsInImage(const cv::Mat& kmatImage)
+IdentifyConvexQuadrilateralsInImage(const cv::Mat& kmatImage,
+                                    const DAF::LoggingFunction& kloggingFunction)
 {
-    cv::Mat matContoursImage = PreprocessImageForConvexQuadrilaterals(kmatImage);
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
+    cv::Mat matContoursImage =
+        PreprocessImageForConvexQuadrilaterals(kmatImage, kloggingFunction);
     
     std::vector<std::vector<cv::Point> > vvpointContours;
     std::vector<cv::Vec4i> vv4Hierarchy;
@@ -132,6 +202,16 @@ IdentifyConvexQuadrilateralsInImage(const cv::Mat& kmatImage)
         }
     }
     
+    if ( kloggingFunction != nullptr )
+    {
+        std::ostringstream szsMessage("Quadrilateral Count ", std::ios_base::ate);
+        szsMessage << vvpointQuadrilaterals.size();
+        kloggingFunction(__PRETTY_FUNCTION__,
+                         szsMessage.str(),
+                         &matContoursImage,
+                         2);
+    }
+    
     return vvpointQuadrilaterals;
 }
 
@@ -140,8 +220,11 @@ static
 std::vector<cv::Mat>
 WarpConvexQuadrilateralsInImageToSquareImages(const cv::Mat& kmatImage,
                                               const std::vector<std::vector<cv::Point> >& kvvpointConvexQuadrilaterals,
-                                              const float krExpansionPercentage)
+                                              const float krExpansionPercentage,
+                                              const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
     std::vector<cv::Mat> vmatSquareImages;
     
     for (const std::vector<cv::Point>& kvpointConvexQuadrilateral : kvvpointConvexQuadrilaterals)
@@ -209,6 +292,12 @@ WarpConvexQuadrilateralsInImageToSquareImages(const cv::Mat& kmatImage,
                                      krNormalizedLength));
         
         vmatSquareImages.push_back(matWarpedImage);
+        
+        if ( kloggingFunction != nullptr )
+            kloggingFunction(__PRETTY_FUNCTION__,
+                             "Warped Image",
+                             &matWarpedImage,
+                             1);
     }
     
     return vmatSquareImages;
@@ -219,8 +308,11 @@ static
 void
 IdentifyClusterForLine(const cv::Vec2f& vrRhoThetaLine,
                        const float krRhoDeltaThreshold,
-                       std::vector<std::vector<cv::Vec2f> >& vvvrRhoThetaClusters)
+                       std::vector<std::vector<cv::Vec2f> >& vvvrRhoThetaClusters,
+                       const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
     for (std::vector<cv::Vec2f>& vvrRhoThetaCluster : vvvrRhoThetaClusters)
     {
         for (const cv::Vec2f& kvrRhoThetaLine : vvrRhoThetaCluster)
@@ -242,8 +334,11 @@ IdentifyClusterForLine(const cv::Vec2f& vrRhoThetaLine,
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
 std::vector<cv::Vec2f>
-AverageClustersToLines(std::vector<std::vector<cv::Vec2f> >& vvvrRhoThetaClusters)
+AverageClustersToLines(std::vector<std::vector<cv::Vec2f> >& vvvrRhoThetaClusters,
+                       const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
     std::vector<cv::Vec2f> vvrRhoThetaClusterAverages;
     
     for (const std::vector<cv::Vec2f>& kvvrRhoThetaCluster : vvvrRhoThetaClusters)
@@ -278,8 +373,11 @@ AverageClustersToLines(std::vector<std::vector<cv::Vec2f> >& vvvrRhoThetaCluster
 static
 std::vector<std::vector<cv::Point> >
 IdentifyIntersectionsInGrid(const std::vector<cv::Vec2f>& kvvrHorizontalRhoThetaLines,
-                            const std::vector<cv::Vec2f>& kvvrVerticalRhoThetaLines)
+                            const std::vector<cv::Vec2f>& kvvrVerticalRhoThetaLines,
+                            const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
     const std::size_t kuHorizontalLineCount = kvvrHorizontalRhoThetaLines.size();
     const std::size_t kuVerticalLineCount = kvvrVerticalRhoThetaLines.size();
     
@@ -345,8 +443,12 @@ IdentifyIntersectionsInGrid(const std::vector<cv::Vec2f>& kvvrHorizontalRhoTheta
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
 std::vector<std::vector<cv::Point> >
-IdentifyGridInImage(const cv::Mat& kmatImage, const float krExpansionPercentage)
+IdentifyGridInImage(const cv::Mat& kmatImage,
+                    const float krExpansionPercentage,
+                    const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+
     std::vector<cv::Vec2f> vvrRhoThetaLines;
     cv::HoughLines(kmatImage, vvrRhoThetaLines, 1, CV_PI / 180.0, 150);
     
@@ -362,25 +464,46 @@ IdentifyGridInImage(const cv::Mat& kmatImage, const float krExpansionPercentage)
     {
         if ( std::fabs(vrRhoThetaLine[1] - CV_PI / 2.0) < krThetaDeltaThreshold )
         {
-            IdentifyClusterForLine(vrRhoThetaLine, krRhoDeltaThreshold, vvvrHorizontalRhoThetaClusters);
+            IdentifyClusterForLine(vrRhoThetaLine,
+                                   krRhoDeltaThreshold,
+                                   vvvrHorizontalRhoThetaClusters,
+                                   kloggingFunction);
         }
         else if ( std::fabs(vrRhoThetaLine[1]) < krThetaDeltaThreshold )
         {
-            IdentifyClusterForLine(vrRhoThetaLine, krRhoDeltaThreshold, vvvrVerticalRhoThetaClusters);
+            IdentifyClusterForLine(vrRhoThetaLine,
+                                   krRhoDeltaThreshold,
+                                   vvvrVerticalRhoThetaClusters,
+                                   kloggingFunction);
         }
     }
     
     std::vector<cv::Vec2f> vvrHorizontalRhoThetaClusterAverage =
-        AverageClustersToLines(vvvrHorizontalRhoThetaClusters);
+        AverageClustersToLines(vvvrHorizontalRhoThetaClusters,
+                               kloggingFunction);
     
     std::vector<cv::Vec2f> vvrVerticalRhoThetaClusterAverage =
-        AverageClustersToLines(vvvrVerticalRhoThetaClusters);
+        AverageClustersToLines(vvvrVerticalRhoThetaClusters,
+                               kloggingFunction);
     
     std::size_t uHorizontalLineClusterCount = vvrHorizontalRhoThetaClusterAverage.size();
     std::size_t uVerticalLineClusterCount = vvrVerticalRhoThetaClusterAverage.size();
     
+    if ( kloggingFunction != nullptr )
+    {
+        std::ostringstream szsMessage("Horizontal Line Cluster Count = ",
+                                      std::ios_base::ate);
+        szsMessage << uHorizontalLineClusterCount
+                   << ", Vertical Line Cluster Count = "
+                   << uVerticalLineClusterCount;
+        kloggingFunction(__PRETTY_FUNCTION__,
+                         szsMessage.str(),
+                         &kmatImage,
+                         1);
+    }
+    
     if ( uHorizontalLineClusterCount != uVerticalLineClusterCount ||
-        uHorizontalLineClusterCount == 0 )
+         uHorizontalLineClusterCount == 0 )
         return {};
     
     if ( (vvrHorizontalRhoThetaClusterAverage.front()[0] > (krExpansionPercentage * ksizeImage.height + krRhoDeltaThreshold)) ||
@@ -389,14 +512,39 @@ IdentifyGridInImage(const cv::Mat& kmatImage, const float krExpansionPercentage)
          (vvrVerticalRhoThetaClusterAverage.back()[0] < ((1 - krExpansionPercentage) * ksizeImage.width - krRhoDeltaThreshold)) )
         return {};
     
-    return IdentifyIntersectionsInGrid(vvrHorizontalRhoThetaClusterAverage, vvrVerticalRhoThetaClusterAverage);
+    std::vector<std::vector<cv::Point> > vvpointGridIntersections =
+        IdentifyIntersectionsInGrid(vvrHorizontalRhoThetaClusterAverage,
+                                       vvrVerticalRhoThetaClusterAverage,
+                                       kloggingFunction);
+    
+    if ( kloggingFunction != nullptr )
+    {
+        cv::Mat matGridIntersectionsImage = kmatImage.clone();
+        for (std::size_t uRow = 0; uRow < vvpointGridIntersections.size(); ++uRow)
+            for (std::size_t uColumn = 0; uColumn < vvpointGridIntersections.size(); ++uColumn)
+                cv::circle(matGridIntersectionsImage,
+                           vvpointGridIntersections[uRow][uColumn],
+                           5,
+                           cv::Scalar(128, 128, 128),
+                           2);
+        
+        kloggingFunction(__PRETTY_FUNCTION__,
+                         "Grid Intersections",
+                         &matGridIntersectionsImage,
+                         0);
+    }
+    
+    return vvpointGridIntersections;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
 cv::Mat
-PreprocessImageForElementState(const cv::Mat& kmatImage)
+PreprocessImageForElementState(const cv::Mat& kmatImage,
+                               const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
     cv::Mat matPreprocessedImage;
     
     cv::cvtColor(kmatImage, matPreprocessedImage, CV_BGR2GRAY);
@@ -452,16 +600,26 @@ PreprocessImageForElementState(const cv::Mat& kmatImage)
         }
     }
     
+    if ( kloggingFunction != nullptr )
+        kloggingFunction(__PRETTY_FUNCTION__,
+                         "Preprocessed Image",
+                         &matPreprocessedImage,
+                         3);
+    
     return matPreprocessedImage;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
 bool
-IdentifyElementStateFromSquareImage(const cv::Mat& kmatSquareImage)
+IdentifyElementStateFromSquareImage(const cv::Mat& kmatSquareImage,
+                                    const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
     cv::Mat matPreprocessedImage =
-        PreprocessImageForElementState(kmatSquareImage);
+        PreprocessImageForElementState(kmatSquareImage,
+                                       kloggingFunction);
     
     cv::Size_<std::size_t> sizePreprocessed = matPreprocessedImage.size();
     const std::size_t kuCenterXY = sizePreprocessed.height / 2;
@@ -495,18 +653,38 @@ IdentifyElementStateFromSquareImage(const cv::Mat& kmatSquareImage)
     const std::size_t kuThreshold =
         (sizePreprocessed.height * sizePreprocessed.height) * 0.33;
 
+    if ( kloggingFunction != nullptr )
+    {
+        std::ostringstream szsMessage("Sum = ", std::ios_base::ate);
+        szsMessage << uStateSum
+                   << ", Minimum Threshold = "
+                   << kuThreshold;
+        kloggingFunction(__PRETTY_FUNCTION__,
+                         szsMessage.str(),
+                         &matPreprocessedImage,
+                         0);
+    }
+    
     return uStateSum > kuThreshold;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static
 std::pair<std::vector<bool>, std::size_t>
-IdentifyStateMatrixFromSquareImage(const cv::Mat& kmatSquareImage, const float krExpansionPercentage)
+IdentifyStateMatrixFromSquareImage(const cv::Mat& kmatSquareImage,
+                                   const float krExpansionPercentage,
+                                   const DAF::LoggingFunction& kloggingFunction)
 {
-    cv::Mat matPreprocessedSquareImage = PreprocessImageForGrid(kmatSquareImage);
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
+    cv::Mat matPreprocessedSquareImage =
+        PreprocessImageForGrid(kmatSquareImage,
+                               kloggingFunction);
     
     std::vector<std::vector<cv::Point> > vvpGridIntersections =
-        IdentifyGridInImage(matPreprocessedSquareImage, krExpansionPercentage);
+        IdentifyGridInImage(matPreprocessedSquareImage,
+                            krExpansionPercentage,
+                            kloggingFunction);
     
     const std::size_t kuLineCount = vvpGridIntersections.size();
     if ( kuLineCount < 2 )
@@ -550,11 +728,13 @@ IdentifyStateMatrixFromSquareImage(const cv::Mat& kmatSquareImage, const float k
     std::vector<cv::Mat> vmatSquareElementImages =
         WarpConvexQuadrilateralsInImageToSquareImages(kmatSquareImage,
                                                       vvpointConvexQuadrilaterals,
-                                                      -krExpansionPercentage);
+                                                      -krExpansionPercentage,
+                                                      kloggingFunction);
     
     std::vector<bool> vbStateMatrix;
     for (const cv::Mat& matSquareElementImage : vmatSquareElementImages)
-        vbStateMatrix.push_back(IdentifyElementStateFromSquareImage(matSquareElementImage));
+        vbStateMatrix.push_back(IdentifyElementStateFromSquareImage(matSquareElementImage,
+                                                                    kloggingFunction));
     
     const std::size_t kuDimension = kuLineCount - 1;
     return {vbStateMatrix, kuDimension};
@@ -564,10 +744,14 @@ IdentifyStateMatrixFromSquareImage(const cv::Mat& kmatSquareImage, const float k
 bool
 DAF::RecognizeLightsOutBoardStateFromImage(const cv::Mat& kmatImage,
                                            std::vector<bool>& vbStateMatrix,
-                                           std::size_t& uDimension)
+                                           std::size_t& uDimension,
+                                           const DAF::LoggingFunction& kloggingFunction)
 {
+    AutoLogger autoLogger(__PRETTY_FUNCTION__, kloggingFunction);
+    
     std::vector<std::vector<cv::Point> > vvpointConvexQuadrilaterals =
-        IdentifyConvexQuadrilateralsInImage(kmatImage);
+        IdentifyConvexQuadrilateralsInImage(kmatImage,
+                                            kloggingFunction);
     
     if ( vvpointConvexQuadrilaterals.size() == 0 )
         return false;
@@ -575,7 +759,10 @@ DAF::RecognizeLightsOutBoardStateFromImage(const cv::Mat& kmatImage,
     const float krExpansionPercentage = 0.1;
     
     std::vector<cv::Mat> vmatSquareImages =
-        WarpConvexQuadrilateralsInImageToSquareImages(kmatImage, vvpointConvexQuadrilaterals, krExpansionPercentage);
+        WarpConvexQuadrilateralsInImageToSquareImages(kmatImage,
+                                                      vvpointConvexQuadrilaterals,
+                                                      krExpansionPercentage,
+                                                      kloggingFunction);
     
     if ( vmatSquareImages.size() == 0 )
         return false;
@@ -583,7 +770,9 @@ DAF::RecognizeLightsOutBoardStateFromImage(const cv::Mat& kmatImage,
     for (const cv::Mat& kmatSquareImage : vmatSquareImages)
     {
         std::pair<std::vector<bool>, std::size_t> pvbuStateMatrixAndDimension =
-            IdentifyStateMatrixFromSquareImage(kmatSquareImage, krExpansionPercentage);
+            IdentifyStateMatrixFromSquareImage(kmatSquareImage,
+                                               krExpansionPercentage,
+                                               kloggingFunction);
         
         const std::size_t kuDimension = pvbuStateMatrixAndDimension.second;
         if ( kuDimension == 0 )

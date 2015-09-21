@@ -11,8 +11,14 @@
 #include "DAFLightsOutBoardView.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#if defined(DEBUG)
+static cv::Mat g_matLoggingImage;
+static std::mutex g_mutexLogging;
+#endif
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
-    ::dispatch_semaphore_create(3);
+    ::dispatch_semaphore_create(1);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface ViewController ()
@@ -43,17 +49,47 @@ static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
         return;
     
     const cv::Mat kmatImage = matImage.clone();
-    
+
     dispatch_block_t dispatchBlock =
         ^void(void)
         {
             std::vector<bool> vbStateMatrix;
             std::size_t uDimension;
             
+#if defined(DEBUG)
+            const void* pvkKey = kmatImage.ptr();
+            
+            auto loggingFunction =
+                [pvkKey]
+                (const std::string& kszFunctionName,
+                 const std::string& kszMessage,
+                 const cv::Mat* pkmatImage,
+                 const std::size_t uDebugLevel) -> void
+                {
+                    if ( uDebugLevel > 1 )
+                        return;
+                    
+                    if ( pkmatImage != nullptr &&
+                         kszMessage.find("Horizontal Line Cluster Count") != std::string::npos )
+                    {
+                        std::unique_lock<std::mutex> uniqueLock(::g_mutexLogging);
+                        g_matLoggingImage = pkmatImage->clone();
+                    }
+                    
+                    ::NSLog(@"\n[%p : %@]\n%@",
+                            pvkKey,
+                            [NSString stringWithUTF8String:kszFunctionName.c_str()],
+                            [NSString stringWithUTF8String:kszMessage.c_str()]);
+                };
+#else
+            DAF::LoggingFunction loggingFunction(nullptr);
+#endif
+            
             bool bDidRecognizeBoardState =
                 DAF::RecognizeLightsOutBoardStateFromImage(kmatImage,
                                                            vbStateMatrix,
-                                                           uDimension);
+                                                           uDimension,
+                                                           loggingFunction);
             
             if ( bDidRecognizeBoardState )
             {
@@ -75,7 +111,7 @@ static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
             ::dispatch_semaphore_signal(::g_dispatchSemaphoreImageProcessing);
         };
     
-    ::dispatch_async(::dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0),
+    ::dispatch_async(::dispatch_get_global_queue(QOS_CLASS_DEFAULT, 0),
                      dispatchBlock);
 }
 
