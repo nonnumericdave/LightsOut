@@ -299,6 +299,7 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     {
         _mutex.unlock();
         
+        [self stopAnimation];
         [self loadInitialBoardGridState];
         
         return;
@@ -333,6 +334,7 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     
     _mutex.unlock();
     
+    [self stopAnimation];
     [self loadInitialBoardGridState];
     
     [self setNeedsLayout];
@@ -421,17 +423,22 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     
     _pLightsOutSolutionAnimator->StartAnimation();
     
-    uniqueLock.unlock();
-    
-    [self willChangeValueForKey:@"isSolving"];
-    
-    uniqueLock.lock();
-    
-    _boolIsSolving = YES;
+    BOOL boolIsSolving = _boolIsSolving;
     
     uniqueLock.unlock();
     
-    [self didChangeValueForKey:@"isSolving"];
+    if ( bHasSolution && ! boolIsSolving )
+    {
+        [self willChangeValueForKey:@"isSolving"];
+
+        uniqueLock.lock();
+    
+        _boolIsSolving = YES;
+    
+        uniqueLock.unlock();
+        
+        [self didChangeValueForKey:@"isSolving"];
+    }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -450,17 +457,22 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
 
     _pDisplayLink = nil;
     
-    _mutex.unlock();
-    
-    [self willChangeValueForKey:@"isSolving"];
-    
-    _mutex.lock();
-    
-    _boolIsSolving = NO;
+    BOOL boolIsSolving = _boolIsSolving;
     
     _mutex.unlock();
     
-    [self didChangeValueForKey:@"isSolving"];
+    if ( boolIsSolving )
+    {
+        [self willChangeValueForKey:@"isSolving"];
+        
+        _mutex.lock();
+        
+        _boolIsSolving = NO;
+        
+        _mutex.unlock();
+        
+        [self didChangeValueForKey:@"isSolving"];
+    }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
