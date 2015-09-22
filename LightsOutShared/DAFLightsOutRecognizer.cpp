@@ -92,8 +92,8 @@ PreprocessImageForGrid(const cv::Mat& kmatImage,
     
     cv::equalizeHist(matPreprocessedImage, matPreprocessedImage);
     
-    cv::GaussianBlur(matPreprocessedImage, matPreprocessedImage, cv::Size(7, 7), 0, 0);
-    
+    cv::GaussianBlur(matPreprocessedImage, matPreprocessedImage, cv::Size(13, 13), 0, 0);
+
     cv::adaptiveThreshold(matPreprocessedImage,
                           matPreprocessedImage,
                           255,
@@ -455,7 +455,8 @@ IdentifyGridInImage(const cv::Mat& kmatImage,
     const float krThetaDeltaThreshold = CV_PI * 15 / 180.0;
     
     const cv::Size_<float> ksizeImage = kmatImage.size();
-    const float krRhoDeltaThreshold = (ksizeImage.width + ksizeImage.height) * krExpansionPercentage / 2.0;
+    const float krLineExpansionPercentage = 0.02;
+    const float krRhoDeltaThreshold = (ksizeImage.width + ksizeImage.height) * krLineExpansionPercentage / 2.0;
     
     std::vector<std::vector<cv::Vec2f> > vvvrHorizontalRhoThetaClusters;
     std::vector<std::vector<cv::Vec2f> > vvvrVerticalRhoThetaClusters;
