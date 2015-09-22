@@ -11,12 +11,6 @@
 #include "DAFLightsOutBoardView.h"
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#if defined(DEBUG)
-static cv::Mat g_matLoggingImage;
-static std::mutex g_mutexLogging;
-#endif
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
     ::dispatch_semaphore_create(1);
 
@@ -24,16 +18,111 @@ static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
 @interface ViewController ()
 
 // ViewController
+- (void)addConstraintsForSubview:(UIView*)pSubView;
 - (void)didTapLightsOutBoardViewWithGestureRecognizer:(UITapGestureRecognizer*)pTapGestureRecgonizer;
 - (void)setBoardStateArray:(NSArray*)pBoardStateArray;
+- (void)displayLoggingImage:(UIImage*)pLoggingImage;
 
 @end
+
+#if defined(DEBUG)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+static void
+LogImageToLayerReleaseData(void* pvInfo, const void* pvData, size_t uSize)
+{
+    cv::Mat* pmatImage = static_cast<cv::Mat*>(pvInfo);
+    delete pmatImage;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+static void
+LogImageToLayer(const cv::Mat& kmatImage,
+                ViewController* pViewController)
+{
+    int iConvertColorCode;
+    switch ( kmatImage.type() )
+    {
+        case CV_8UC1:
+            iConvertColorCode = CV_GRAY2RGBA;
+            break;
+            
+        case CV_8UC3:
+            iConvertColorCode = CV_BGR2RGBA;
+            break;
+            
+        default:
+            return;
+    }
+
+    cv::Mat matImageResized;
+    int iMaxSizeDimension = std::max(kmatImage.rows, kmatImage.cols);
+    if ( iMaxSizeDimension > 768 )
+    {
+        const double krResizeFactor =
+            static_cast<double>(768) / iMaxSizeDimension;
+        
+        cv::Size size(kmatImage.rows / krResizeFactor,
+                      kmatImage.cols / krResizeFactor);
+        
+        cv::resize(kmatImage, matImageResized, size);
+    }
+    else
+    {
+        matImageResized = kmatImage;
+    }
+    
+    cv::Mat* pmatImage = new cv::Mat;
+    cv::cvtColor(matImageResized, *pmatImage, iConvertColorCode);
+    
+    assert( pmatImage->isContinuous() );
+    
+    CGDataProviderRef dataProviderRef =
+        ::CGDataProviderCreateWithData(pmatImage,
+                                       pmatImage->ptr(),
+                                       pmatImage->total() * pmatImage->elemSize(),
+                                       ::LogImageToLayerReleaseData);
+    
+    CGColorSpaceRef colorSpaceRef =
+        ::CGColorSpaceCreateDeviceRGB();
+    
+    const size_t kuBitsPerComponent = pmatImage->elemSize1() * 8;
+    const size_t kuBitsPerPixel = pmatImage->elemSize() * 8;
+    const size_t kuBytesPerRow = pmatImage->cols * pmatImage->elemSize();
+    
+    CGImageRef imageRef =
+        ::CGImageCreate(pmatImage->cols,
+                        pmatImage->rows,
+                        kuBitsPerComponent,
+                        kuBitsPerPixel,
+                        kuBytesPerRow,
+                        colorSpaceRef,
+                        kCGBitmapByteOrder32Big |kCGImageAlphaNoneSkipLast,
+                        dataProviderRef,
+                        NULL,
+                        NO,
+                        kCGRenderingIntentDefault);
+
+    UIImage* pLoggingImage =
+        [[UIImage alloc] initWithCGImage:imageRef];
+
+    ::CGImageRelease(imageRef);
+    
+    ::CGColorSpaceRelease(colorSpaceRef);
+                        
+    ::CGDataProviderRelease(dataProviderRef);
+    
+    [pViewController performSelectorOnMainThread:@selector(displayLoggingImage:)
+                                      withObject:pLoggingImage
+                                   waitUntilDone:NO];
+}
+#endif
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @implementation ViewController
 {
     CvVideoCamera* _pVideoCamera;
     DAFLightsOutBoardView* _pLightsOutBoardView;
+    UIImageView* _pLoggingImageView;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -60,7 +149,7 @@ static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
             const void* pvkKey = kmatImage.ptr();
             
             auto loggingFunction =
-                [pvkKey]
+                [pvkKey, self]
                 (const std::string& kszFunctionName,
                  const std::string& kszMessage,
                  const cv::Mat* pkmatImage,
@@ -71,11 +160,8 @@ static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
                     
                     if ( pkmatImage != nullptr &&
                          kszMessage.find("Horizontal Line Cluster Count") != std::string::npos )
-                    {
-                        std::unique_lock<std::mutex> uniqueLock(::g_mutexLogging);
-                        g_matLoggingImage = pkmatImage->clone();
-                    }
-                    
+                        ::LogImageToLayer(*pkmatImage, self);
+
                     ::NSLog(@"\n[%p : %@]\n%@",
                             pvkKey,
                             [NSString stringWithUTF8String:kszFunctionName.c_str()],
@@ -127,42 +213,20 @@ static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
     _pVideoCamera.defaultFPS = 30;
     _pVideoCamera.grayscaleMode = NO;
     _pVideoCamera.delegate = self;
+
+#if defined(DEBUG)
+    _pLoggingImageView = [[UIImageView alloc] init];
+    _pLoggingImageView.contentMode = UIViewContentModeScaleAspectFit;
+    _pLoggingImageView.alpha = 0.5;
+    [self.view addSubview:_pLoggingImageView];
+    [self.view bringSubviewToFront:_pLoggingImageView];
+    [self addConstraintsForSubview:_pLoggingImageView];
+#endif
     
     _pLightsOutBoardView = [[DAFLightsOutBoardView alloc] init];
-    
     [self.view addSubview:_pLightsOutBoardView];
     [self.view bringSubviewToFront:_pLightsOutBoardView];
-    
-    _pLightsOutBoardView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    NSArray* pHorizontalLayoutConstraintArray =
-        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_pLightsOutBoardView]-0-|"
-                                                options:0
-                                                metrics:nil
-                                                  views:NSDictionaryOfVariableBindings(_pLightsOutBoardView)];
-    
-    NSLayoutConstraint* pHeightLayoutConstraint =
-        [NSLayoutConstraint constraintWithItem:_pLightsOutBoardView
-                                     attribute:NSLayoutAttributeHeight
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:_pLightsOutBoardView
-                                     attribute:NSLayoutAttributeWidth
-                                    multiplier:1.0
-                                      constant:0];
-    
-    NSLayoutConstraint* pCenterYLayoutConstraint =
-        [NSLayoutConstraint constraintWithItem:_pLightsOutBoardView
-                                     attribute:NSLayoutAttributeCenterY
-                                     relatedBy:NSLayoutRelationEqual
-                                        toItem:self.view
-                                     attribute:NSLayoutAttributeCenterY
-                                    multiplier:1.0
-                                      constant:0];
-    
-    NSArray* pLayoutConstraintArray =
-        [pHorizontalLayoutConstraintArray arrayByAddingObjectsFromArray:@[pHeightLayoutConstraint, pCenterYLayoutConstraint]];
-    
-    [self.view addConstraints:pLayoutConstraintArray];
+    [self addConstraintsForSubview:_pLightsOutBoardView];
     
     UITapGestureRecognizer* pTapGestureRecognizer =
         [[UITapGestureRecognizer alloc] initWithTarget:self
@@ -175,6 +239,41 @@ static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
 - (void)viewDidAppear:(BOOL)boolAnimated
 {
     [_pVideoCamera start];
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)addConstraintsForSubview:(UIView*)pSubView
+{
+    pSubView.translatesAutoresizingMaskIntoConstraints = NO;
+    
+    NSArray* pHorizontalLayoutConstraintArray =
+        [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[pSubView]-0-|"
+                                                options:0
+                                                metrics:nil
+                                                  views:NSDictionaryOfVariableBindings(pSubView)];
+    
+    NSLayoutConstraint* pHeightLayoutConstraint =
+        [NSLayoutConstraint constraintWithItem:pSubView
+                                     attribute:NSLayoutAttributeHeight
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:pSubView
+                                     attribute:NSLayoutAttributeWidth
+                                    multiplier:1.0
+                                      constant:0];
+    
+    NSLayoutConstraint* pCenterYLayoutConstraint =
+        [NSLayoutConstraint constraintWithItem:pSubView
+                                     attribute:NSLayoutAttributeCenterY
+                                     relatedBy:NSLayoutRelationEqual
+                                        toItem:self.view
+                                     attribute:NSLayoutAttributeCenterY
+                                    multiplier:1.0
+                                      constant:0];
+    
+    NSArray* pLayoutConstraintArray =
+        [pHorizontalLayoutConstraintArray arrayByAddingObjectsFromArray:@[pHeightLayoutConstraint, pCenterYLayoutConstraint]];
+    
+    [self.view addConstraints:pLayoutConstraintArray];
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -192,6 +291,12 @@ static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
         return;
     
     _pLightsOutBoardView.initialBoardState = pBoardStateArray;
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- (void)displayLoggingImage:(UIImage*)pLoggingImage
+{
+    _pLoggingImageView.image = pLoggingImage;
 }
 
 @end
