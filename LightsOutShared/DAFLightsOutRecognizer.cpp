@@ -110,7 +110,7 @@ PreprocessImageForGrid(const cv::Mat& kmatImage,
     
     if ( kloggingFunction != nullptr )
         kloggingFunction(__PRETTY_FUNCTION__,
-                         "Preprocessed Image",
+                         "Preprocessed Grid Image",
                          &matPreprocessedImage,
                          3);
     
@@ -162,7 +162,7 @@ PreprocessImageForGrid(const cv::Mat& kmatImage,
     
     if ( kloggingFunction != nullptr )
         kloggingFunction(__PRETTY_FUNCTION__,
-                         "Flooded Image",
+                         "Flooded Preprocessed Grid Image",
                          &matPreprocessedImage,
                          1);
     

@@ -12,7 +12,7 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 static const dispatch_semaphore_t g_dispatchSemaphoreImageProcessing =
-    ::dispatch_semaphore_create(1);
+    ::dispatch_semaphore_create(3);
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 @interface ViewController ()
@@ -155,11 +155,11 @@ LogImageToLayer(const cv::Mat& kmatImage,
                  const cv::Mat* pkmatImage,
                  const std::size_t uDebugLevel) -> void
                 {
-                    if ( uDebugLevel > 1 )
+                    if ( uDebugLevel > 3 )
                         return;
                     
                     if ( pkmatImage != nullptr &&
-                         kszMessage.find("Horizontal Line Cluster Count") != std::string::npos )
+                         kszMessage.find("Flooded Preprocessed Grid Image") != std::string::npos )
                         ::LogImageToLayer(*pkmatImage, self);
 
                     ::NSLog(@"\n[%p : %@]\n%@",
