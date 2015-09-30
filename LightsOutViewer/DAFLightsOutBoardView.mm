@@ -484,7 +484,8 @@ LightsOutSolutionAnimatorSink::ToggleStateOfElements(const std::vector<std::size
     
     assert( _pLightsOutSolutionAnimator != nullptr );
     
-    _pLightsOutSolutionAnimator->UpdateFrameDelta(pDisplayLink.duration);
+    const double krFrameDeltaSeconds = pDisplayLink.duration * pDisplayLink.frameInterval;
+    _pLightsOutSolutionAnimator->UpdateFrameDelta(krFrameDeltaSeconds);
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
