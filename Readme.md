@@ -11,7 +11,7 @@ In order to build the Form/PerformPlugin targets, as well as the LightsOutFormVi
 The goal of this application is to automagically locate a "Lights Out" game board, along with its state, using the camera on the device.  After the game board has been detected, the application will then give the user an opportunity to "solve" the game.
 
 ### LightsOutViewer Target Demonstration
-[![IMAGE ALT TEXT](http://img.youtube.com/vi/v02fEpykwyk/maxresdefault.jpg)](http://www.youtube.com/watch?v=v02fEpykwyk "GitHub LightsOut")
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/v02fEpykwyk/maxresdefault.jpg)](http://www.youtube.com/watch?v=v02fEpykwyk "GitHub LightsOut Demonstration on YouTube")
 
 ### Todo
 Crafting up a version of the game to run on an Ableton Push whevever I have some time.
