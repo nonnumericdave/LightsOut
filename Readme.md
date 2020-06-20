@@ -1,5 +1,5 @@
 ## LightsOut
-My solution to the Google Foobar "Lights Out" challenge using a mixture of C++, Objective-C, OpenCV and Form on iOS.
+My solution to the Google Foobar "Lights Out" challenge using a mixture of C++, Objective-C, OpenCV and Form for iOS.
 
 ### Description
 The "Lights Out" game is a variation of the older Tiger Electronics "Lights Out" game.  The premise of "Lights Out" is simple:  you are given a N by N grid of lighted buttons, with each light in an initial "On" or "Off" state, chosen at random.  Pressing a button toggles the state of that button's respective light.  However, it also toggles the state of each light in the same row and column.  The goal of the game is to determine the sequence of buttons to press in order for every light on the grid to be in the "Off" state simultanteously.
